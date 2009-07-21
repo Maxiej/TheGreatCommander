@@ -1,0 +1,5 @@
+page['span_'+ @new.id.to_s].innerHTML = @new.content
+page["news_created_at_#{@new.id.to_s}"].innerHTML = "<b>Created at: </b>&nbsp;&nbsp;" + @new.publication_date.to_s
+
+# wyłączany jest ajax w prawy górnym rogu
+page << "deactive_ajax_loading();"

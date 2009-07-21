@@ -1,0 +1,44 @@
+
+<div align = "center" style = "margin-top: 20px">
+  <b>Please input password and press enter to play game:</b><br/>  
+  <i><%=h truncate(@game.name,50) %></i>
+</div>
+
+<br/>
+<br/>
+<br/>
+
+<%  form_remote_tag :url => {:controller =>  'game', :action =>'authenticate',
+                                              :id => @game.id},
+                    :html => { :method => 'post',
+                    :onsubmit => '$("password_checking").show();
+                                  $("bad_password").hide();' } do %>
+    <div>
+        <div  style = "float: left; margin-left: 100px"> 
+          Password: <%= password_field_tag "Password" -%>
+        </div>
+        <div>
+            <div style = "float: left; margin-left: 10px">
+                <%= submit_tag 'Play'-%> 
+            </div>         
+         
+            <div id = "password_checking" 
+                 style = "width: 20px; display: none; margin-left: 380px;">
+              <%=image_tag("interactive_elements/ajax_loader.gif") %>
+            </div>     
+        </div>                 
+    </div>      
+    
+<% end %>
+
+
+<div>
+  <div align = "center" style = "width: 145px; margin-left: 160px; margin-top: 25px">
+          <div class = "error_message" id = "bad_password" style="display: none" ></div>
+  </div>    
+</div>
+
+<div style="position: absolute; top:180px; left:450px;" >
+    <a href="#" class="lbAction" rel="deactivate">Cancel</a>    
+</div>
+

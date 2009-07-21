@@ -1,0 +1,108 @@
+<%#*zaladowanie jednostek na planszy i sprawdzenie czy przeciwnik wykonal jakies akcje%>
+<% javascript_tag do -%>
+    setAllUnitPos(<%=  @current_player.id %>,<%=  @opponent_player_id %>);  
+    checkOpponentMovement(<%=  @current_player.id %>);
+<% end %> 
+
+<%#*tooltip do wyswietlanie wlasciwosci terenu%>
+<div id="bubble_tooltip_terrain" class="bubble_tooltip">
+      <div class="bubble_top"><span></span></div>
+      <div class="bubble_middle">
+         <span id="bubble_tooltip_content_terrain" class="bubble_tooltip_content">
+           Content is comming here as you probably can see.Content is comming here as you probably can see.
+         </span>
+      </div>
+      <div class="bubble_bottom"></div>
+  </div>
+  
+<%#*zaladowanie terenu mapy%>
+<% for terrain_pos in @map_positions %>    
+    <% content_tag(:div, 
+          :id => "[#{terrain_pos.x},#{terrain_pos.y}]",
+          :class => "terrain",
+          :style => "display :" + 
+            display(@offset, terrain_pos.x,terrain_pos.y) + ";") do %>           
+
+          <%= image_tag("/terrain/show/" + terrain_pos.terrain.id.to_s,
+              :name => controller.div_element_id(terrain_pos.x, terrain_pos.y),
+              :onclick => "showToolTip(event,'#{show_description(terrain_pos.terrain.id)}');",
+              :onmouseout => "hideToolTip()",
+              :alt => "[#{terrain_pos.x.to_s},#{terrain_pos.y.to_s}]") %>
+    <% end %>   
+  <% end %> 
+
+<%#*strzalki do nawigacji mapy%>
+  <% content_tag(:div, :id => "arrow_up", :class => "arrow") do %>    
+    <%= link_to_function(image_tag("interactive_elements/arrow_up.png",
+        :border => 0),"scroll_up(#{ConstValues::SIZE_OF_BOARD_EL},
+                       #{@map.size_x},#{@map.size_y});") %>
+  <% end %>  
+  
+  <% content_tag(:div, :id => "arrow_down", :class => "arrow") do %>    
+    <%= link_to_function(image_tag("interactive_elements/arrow_down.png",
+        :border => 0),"scroll_down(#{ConstValues::SIZE_OF_BOARD_EL},
+                       #{@map.size_x},#{@map.size_y});") %>
+  <% end %>  
+  
+  <% content_tag(:div, :id => "arrow_left", :class => "arrow") do %>    
+    <%= link_to_function(image_tag("interactive_elements/arrow_left.png",
+      :border => 0), "scroll_left(#{ConstValues::SIZE_OF_BOARD_EL},
+                       #{@map.size_x},#{@map.size_y});")%>
+  <% end %>  
+  
+  <% content_tag(:div, :id => "arrow_right", :class => "arrow") do %>    
+    <%= link_to_function(image_tag("interactive_elements/arrow_right.png",
+      :border => 0), "scroll_right(#{ConstValues::SIZE_OF_BOARD_EL},
+                       #{@map.size_x},#{@map.size_y});")%>
+  <% end %>  
+
+<%#*tooltip do ataku%>
+<div id='bubble_tooltip_attack' class='bubble_tooltip'>
+            <div class='bubble_top'><span></span></div>
+            <div class='bubble_middle'>
+               <span id='bubble_tooltip_content_attack' class='bubble_tooltip_content'>
+               </span>
+            </div>
+            <div class='bubble_bottom'></div>
+        </div>
+  
+
+<%#*zaladowanie jednostek playera zalogowanego%>
+<%  counter_x = 0 %>
+
+<% @units.each do |unit| %>      
+        <%=  create_player_unit_div(unit,@current_player,@opponent_player_id,
+                      get_counter_x(counter_x), get_counter_y(counter_x), @offset) %>      
+        <% if (unit.is_turn and @current_player.is_turn) or !@current_player.is_ready %>    
+              <script>
+                  createDraggableElement(<%= unit.id.to_s %>,<%= @current_player.id.to_s %>,<%= @opponent_player_id.to_s %> ,<%=unit.unit.unit_property.range_move.to_s%>,true)
+              </script>
+        <% end %>
+
+        <% counter_x = counter_x + 1 %> 
+<% end %>
+
+<%#*zaladowanie jednostek przeciwnika%>
+<% if @opponent_player_id.to_i != -1 %>
+  <% if @opponent_player.is_ready and @current_player.is_ready %>
+    <% for opp_unit in @opp_units %>
+        <%=  create_player_unit_div(opp_unit,@opponent_player,"", 
+                    get_counter_x(counter_x), get_counter_y(counter_x), @offset) %>  
+        <% counter_x = counter_x + 1 %>   
+    <% end %>
+  <% end %>    
+<% end %>
+  
+<%#*ustalenie offsetu mapy%>
+<%  if(@current_player.is_owner) %>
+  <% content_tag(:div, :id => "offsetX", :class => "offset") do %>0<% end %>
+  <% content_tag(:div, :id => "offsetY", :class => "offset") do %>0<% end %>
+<%else%>
+  <% content_tag(:div, :id => "offsetX", :class => "offset") do %>0<% end %>
+  <% content_tag(:div, :id => "offsetY", :class => "offset") do %>
+        <%= @current_player.game.map.size_y - ConstValues::SIZE_OF_BOARD_EL %>
+  <% end %>
+<%end%>
+  <% content_tag(:div, :id => "debug", :class => "debug") do %>
+<% end %>
+

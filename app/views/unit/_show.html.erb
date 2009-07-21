@@ -1,0 +1,46 @@
+<div class = "default_style" id = "left_s_panel">
+  
+  <% content_tag(:div, :id => "ready", :align => "center",
+    :style => "display: #{button_display(@current_player.is_ready)}") do %>
+        <% form_tag "/", :onSubmit => "setReadyPlayer(#{@current_player.id})" do %>
+          <div class = "end_turn">
+              <%= submit_tag "Ready", :disable_with => "Please wait ..." %>
+          </div>
+            
+        <% end %>
+  <% end %>
+  
+  <% content_tag(:div, :id => "end_turn", :align => "center",
+    :style => "display: #{button_display(!@current_player.is_ready)}") do %>
+        <% form_remote_tag :url => {:controller => "game", :action => "end_turn", 
+         :id => @game.id, :player_id => @current_player.id } do %>
+            <div class = "end_turn">
+                <%= submit_tag "End Turn",:id => "end_turn_commit", 
+                  :disabled => !@current_player.is_turn,
+                  :disable_with => "Please wait ..." %>
+            </div>
+        <% end %>
+  <% end %>
+  
+    <div id = "ut1">
+      <div id = "ut" class = "left_s_panel_title">
+        <u>UNITS:</u> 
+      </div>
+    </div>    
+    <div id = "unit_panel" class="unit_panel">
+      <% for unit in @available_units %>        
+        
+        <%= create_unit_div(unit,@current_player,@opponent_player_id) %>  
+        <%#= create_draggable_element(unit.id,@current_player.id) %>   
+        
+        <% if @current_player.is_turn or !@current_player.is_ready %>
+          <script>
+            createDraggableElement(<%= unit.id.to_s %>,<%= @current_player.id.to_s %>,<%=@opponent_player_id.to_s %>,<%= unit.unit_property.range_move.to_s %> ,false)
+          </script>        
+        <% end %>
+         
+      <% end %>
+    </div>
+ </div> 
+ 
+ <% content_tag(:div, :id => "unit_move_pos", :class => "unit_hidden_pos") do %><% end %>

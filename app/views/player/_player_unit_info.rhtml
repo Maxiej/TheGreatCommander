@@ -1,0 +1,40 @@
+<% content_tag :div, :id => "unit_info_#{side.to_s}" do -%>       
+  <br/>
+    <% if side.to_s == 'left'%>
+    <p2> <u>YOUR UNIT:</u></p2> <br/>
+    <%else%>
+    <p2> <u>OPPONENT UNIT:</u></p2> <br/>
+    <%end%>
+   <p2> <b> <%=h player_unit.unit.name %> </b></p2> <br/> 
+   <p1>Hit Points:&nbsp; 
+     <font style = "color:red"><%=h player_unit.hp_left %></font> /
+     <%=h player_unit.unit.unit_property.hp %>
+   </p1>
+   <br/>
+<% if player_unit.hp_left > 0 %>  
+   <% if  player_unit.is_turn %>
+     <b>Can move this turn</b>
+   <% else %>
+     Has already moved
+   <% end %>
+   <br/>
+  
+   Strength: <p1><%=h player_unit.unit.unit_property.strength %></p1><br/> 
+   Armor: <p1><%=h player_unit.unit.unit_property.armor %></p1><br/> 
+   Move range: <p1><%=h player_unit.unit.unit_property.range_move %></p1><br/>
+     
+   <%# if player_unit.unit.unit_property.is_flying%>
+     <%#*<u>Shooting ability</u><br/>%>    
+     <%#*Can move over obstacles. <br/>%>  
+   <%#end%>   
+  
+   <%# if player_unit.unit.unit_property.is_shooting %>
+     <%#*<u>Shooting ability</u><br/>%>    
+     <%#*Strength: <p1><%=h player_unit.unit.unit_property.range_strength </p1><br/>%> 
+     <%#*Range: <p1><%=h player_unit.unit.unit_property.range_attack </p1><br/>%> 
+   <%# end %>
+   
+<%else%>
+     <b>UNIT WAS KILLED!!</b>     
+ <%end%>
+<% end -%>

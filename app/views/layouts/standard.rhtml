@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1" />
+<meta http-equiv="Content-Language" content="en-us" />
+<title>The Great Commander - beta</title>
+    <%= stylesheet_link_tag('/rcss/default', {:media => "all"})%>
+    <%= stylesheet_link_tag('/rcss/bubbletooltip', {:media => "all"})%>
+    <%= stylesheet_link_tag('/rcss/units', {:media => "all"})%>
+    <%= stylesheet_link_tag('/rcss/playerprofile', {:media => "all"})%>
+    <%= stylesheet_link_tag('/rcss/accordion', {:media => "all"})%>
+
+    <%= javascript_include_tag :defaults %>  
+
+    <link rel="stylesheet" href="/stylesheets/lightbox.css" type="text/css" />
+    <script src="/javascripts/lightbox.js" type="text/javascript"></script>
+    <script src="/javascripts/accordion.js" type="text/javascript"></script>
+       
+</head>
+<body id="Great Comander" onload = "iAmOnline(<%= current_id %>)">
+
+<div id = "debug"></div>
+  
+<div id="wrapper">
+
+  <div id="header">
+    <div id = "header_logo">
+      <%= link_to(image_tag("others/logoszare.png",:border => 0),
+        :controller => "news") %>      
+    </div>
+    
+    <div id = "header_menu">
+      <%= render :partial => "menu/show"%>
+    </div>
+    
+    <div id = "header_login">
+        <% if logged_in? %>
+            <div id = "avatar_thumbnail">
+              <% if !current_user.avatar.nil? %>
+                <%= link_to(image_tag("/users/avatar/#{current_user.id}",
+                            :size => '32x32',
+                            :border => 1), 
+                :controller => 'users', :action => 'show',
+                :id => current_user.id)%> 
+              <%else%>
+                <%=  link_to(image_tag("others/no_photo.png",
+                        :id => "no_photo",
+                        :size => '32x32',
+                        :border => 1),  :controller => 'users', :action => 'show',
+                :id => current_user.id)
+                    %>  
+              <%end%>
+            </div>
+            <b>Logged in as:</b><%= link_to current_user.login, 
+                :controller => 'users', :action => 'show', :id => current_user.id%> 
+            <br/>    
+            <%= link_to '<b>Logout</b>', :controller => 'sessions', :action => 'destroy' %>
+            <br/>                   
+            <span id = "online_status">online</span>            
+            
+            
+        <% else %>
+          <%= link_to 'Log in', :controller => 'sessions', :action => 'new'%>
+            or 
+          <%= link_to "Sign up", :controller => 'users', :action => 'new'%>
+        <% end %>
+         <div id = "ajax_loading" style="display: none;">
+                <%=image_tag("interactive_elements/ajax_loader.gif",
+                   :class => "board_ajax_loader" ) %>
+            </div>  
+    </div>      
+  </div>
+  
+  <% unless flash[:notice].blank? %>
+    <div id="notification"><%= flash[:notice] %></div>
+  <% end %>
+
+ <% unless flash[:error].blank? %>
+    <div id="error"><%= flash[:error] %></div>
+ <% end %>
+  
+
+  <%= yield -%>
+  
+  <div id="footer">
+          Copyright © 2008 greatcommander.com
+  </div>
+
+</div>
+    
+</body>
+</html>
+

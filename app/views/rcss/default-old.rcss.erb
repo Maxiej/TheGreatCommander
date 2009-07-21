@@ -1,0 +1,79 @@
+body {
+    padding:5px;
+    font-family: 'Courier New',Courier,monospace;
+    font-size: 12px;
+    font-style: inherit;
+    font-variant: normal;
+}
+
+div#main {
+    float: left;    
+}
+
+div#wrapper {
+    width: <%= @wrapper_width %>px;
+    margin:0 auto;
+}
+
+div#header, div#footer {
+    background-color: #33CCFF;
+    text-align: center;
+}
+
+div#header {
+    height: <%= @header_height %>px;
+}
+
+div#footer {
+    height: <%= @footer_height %>px;
+    clear: both;
+    visibility: hidden;
+}
+
+div#board {
+    background-color: #66FF66;        
+    margin-left: <%= @leftpanel_width %>px;
+    visibility: hidden;
+    width: <%= @board_size %>px;
+    height: <%= @board_size %>px;
+}
+
+div#left {      
+    width: <%= @leftpanel_width %>px;
+    background-color: <%= @color %>;
+    float: left;
+}
+
+div#leftcontent {
+    margin-top: 0;
+    padding: 0 0 0 0;
+}
+
+
+div#right {
+    width: <%= @rightpanel_width %>px;
+    background-color: <%= @color %>;  
+    margin-left: <%= @board_size + @leftpanel_width %>px;
+}
+
+h1, h3 {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+h3 {
+    height: <%= @element_size%>px;
+}
+
+div.terrain {
+    width: <%= @element_size%>px;
+    height: <%= @element_size%>px;
+    margin-top: 0;
+    margin-bottom: 0;
+    float: left;
+}
+
+
+
+
+

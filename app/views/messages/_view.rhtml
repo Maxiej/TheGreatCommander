@@ -1,0 +1,32 @@
+<div class = "view_message_heading">
+  
+  <div class = "small_avatar">
+     <%= image_tag(avatar_path(@message.user.id), :class => "small_avatar_image")%>  
+  </div>
+  
+  <div class = "view_message_heading_information">
+    From: <%= link_to  @message.user.login, user_path(@message.user.id) -%> <br/>
+    Date: <%= @message.created_at -%> <br/> 
+  </div>
+
+</div>
+
+
+<div class = "view_message_subject">
+  <h3><%= @message.title %> </h3>  
+</div>
+
+<div class = "view_message_content">
+  
+  <%= @message.content -%> 
+
+  <br/>
+
+  <% if !your_message?(@message.id) %>
+   <% form_tag :action => "inbox", :id => current_user.id,
+        :tab => 2, :to => @message.user.id  do %>
+     <%= submit_tag "Replay" %>
+   <% end %>
+  <% end %>
+</div>
+

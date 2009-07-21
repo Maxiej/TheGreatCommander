@@ -1,0 +1,171 @@
+page.call :hideAttackResultToolTip
+# najpierw synchronizacja konsoli
+unless @error.nil?
+  @console = @error + @console + "<br/>"
+end
+
+#your turn, odblokowywuje wszystkie twoje jednostki, ponieważ jest twoja tura
+if @your_turn
+   @console = console_yourturn + @console
+   
+   page["ready_image_opponent"].show()
+   
+   page['end_turn_commit'].disabled = false
+   
+   @p.player_units.each do |u|
+     if u.is_alive?
+      page << "createDraggableElement(#{u.id.to_s},#{@p.id.to_s},#{@op.id.to_s},#{u.unit.unit_property.range_move.to_s},true);"         
+      page << "changeDivImageToNormal(#{u.id.to_s},#{@p.id.to_s},#{u.unit.id});"
+     end
+    end
+   
+  Unit.all.each do |u|
+    page << "createDraggableElement(#{u.id.to_s},#{@p.id.to_s},#{@op.id.to_s},#{u.unit_property.range_move.to_s},false);"        
+    page << "changeUnitDivImageToNormal(#{u.id.to_s},#{@p.id.to_s});"
+
+  end
+  
+end
+#==========================================================================
+
+#informacja na konsoli
+if @end_turn
+   @console = console_endturn(@op)+@console   
+   page["ready_image_opponent"].show()
+end
+
+#jeśli przeciwnik kliknął ready to trzeba stworzy wszystkie jego jednostki
+if @is_ready and @p.is_ready and @show_opp_units
+  
+  page["ready_image_opponent"].show()
+  i = @p.player_units.length
+
+  @op.player_units.each do |u|
+    #tworzymy jednostke przeciwnika
+    player_div = create_player_unit_div(u,@op,"",
+    get_counter_x(i), get_counter_y(i), @offset)
+    #i wstawiany na koniec planszy, żeby się układ nie rozwalił
+    page.insert_html :before,"offsetX", player_div    
+    i += 1
+  end
+  page["opponent_gold_field"].innerHTML = @op.gold.to_s + '$';
+  page.visual_effect :Pulsate , :opponent_gold_field  
+  page["unit_move_pos"].innerHTML = set_all_units_pos(@p.id, @op.id)   
+  
+end
+
+#użytkownik się podłączył
+if @is_connected
+  @console = console_connected(@op) + @console
+  page.replace "no_user",  :partial => 'player/show/',  :locals => { :player => @op }
+end
+
+#ruch jednostek
+unless @units_moved.empty?
+  
+  @units_moved.each{ |u|
+    @console = console_move(u) + @console
+    # trzeba odrysować położenie tej jednoski
+    page << move_player_unit(u,@op)
+
+  }
+  
+  if @units_moved.length > 0 
+    #zapisujemy jednostki w tablicy, żeby były widoczne w czasie scrollowania
+    page["unit_move_pos"].innerHTML = set_all_units_pos(@p.id, @op.id)  
+  end  
+  
+end
+
+unless @money_changed.nil?
+  if @p.is_ready and @op.is_ready
+    #zmiena pieniedzy
+    page["opponent_gold_field"].innerHTML = @money_changed.to_s + '$';
+    page.visual_effect :Pulsate , :opponent_gold_field  
+    @console = console_money_changed(@op) + @console
+  end
+end
+
+unless @units_bought.empty?
+  
+  @units_bought.each{ |u|    
+    @console = console_buy(u) + @console         
+    
+    # tworzony jest player_div 
+
+    #ustalamy counter units_quantity zwaraca ilosc jednostek
+    #nowa jednostka ma byc wstawiona jako ostatnia
+    counter_x = get_counter_x(@g.units_quantity - 1)
+    counter_y = get_counter_y(@g.units_quantity - 1)      
+  
+#    puts "counter_x " + counter_x.to_s
+#    puts "counter_y " + counter_y.to_s
+#    puts "u " + u.to_s
+#    puts "@op " + @op.to_s
+#    puts "@offset " + @offset.to_s
+#    puts 'stupid error'
+    player_div = create_player_unit_div(u,@op,"",counter_x,counter_y,@offset)       
+    #i wstawiany na koniec planszy, żeby się układ nie rozwalił
+    page.insert_html :before,"offsetX", player_div 
+  }
+  
+  if @units_bought.length > 0 
+    #zapisujemy jednostki w tablicy, żeby były widoczne w czasie scrollowania
+    page.replace 'statistics_panel', :partial => 'player/statistics',
+      :locals => { :curr_player => @p, :opp_player => @op}
+    page["unit_move_pos"].innerHTML = set_all_units_pos(@p.id, @op.id)    
+  end
+  
+  
+end
+
+unless @units_attacked.empty?
+  
+  @units_attacked.each{ |u,u1,hp_taken,hp_received|
+    @console = console_attack(u,u1) + @console
+      page.visual_effect :Pulsate,  "[unit(#{u.id.to_s},#{u.player_id.to_s})]"
+      page.visual_effect :Pulsate,  "[unit(#{u1.id.to_s},#{u1.player_id.to_s})]"
+     if(!u.is_alive?)
+       page << "hideUnit(#{u.id.to_s},#{u.player_id.to_s})"
+       @console = console_unit_destroy(u1,u) + @console  
+     end
+     if !u1.is_alive?
+        page << "hideUnit(#{u1.id.to_s},#{u1.player_id.to_s})"
+       @console = console_unit_destroy(u,u1) + @console
+     end
+     
+    if u.is_alive? and u1.is_alive?
+    #wyswietlenie komunikatu - tooltipa o rezultacie walki
+      page.call :showAttackResultToolTip,
+        "#{u1.id.to_s}",
+        "#{@p.id.to_s}",
+        false,#jest zabity????
+        "#{attack_opponent_result_info(u,u1,hp_taken,hp_received)}"
+    else
+      page.call :showAttackResultToolTip,
+        "#{u1.id.to_s}",
+        "#{@p.id.to_s}",
+        true,
+        "#{attack_opponent_result_info(u,u1,hp_taken,hp_received)}"
+    end
+  }
+  
+  page.replace 'statistics_panel', :partial => 'player/statistics',
+      :locals => { :curr_player => @p, :opp_player => @op}
+   
+   
+    #check if sb win or loose
+    if(@p.is_ready and @op.is_ready)
+      if(@p.loose?)
+         page.redirect_to(:controller =>"game", :action => "finish_game", 
+           :id => @p.id)
+      elsif @op.loose?  
+         page.redirect_to(:controller =>"game", :action => "finish_game", 
+           :id => @op.id)
+      end
+  end
+end
+
+unless @console == ""  
+  page << update_console(@console)  
+end

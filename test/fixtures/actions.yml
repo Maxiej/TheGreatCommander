@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+ one:
+   id: value
+   player_id: 1
+   action: ready
+   created_at: 2008-07-20 11:52:11
+
+ two:
+   id: value
+   player_id: 1
+   action: ready2
+   created_at: 2008-07-20 12:52:11

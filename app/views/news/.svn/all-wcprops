@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/commander_project/!svn/ver/459/Commander/app/views/news
+END
+new_content.rjs
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/commander_project/!svn/ver/440/Commander/app/views/news/new_content.rjs
+END
+index.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/commander_project/!svn/ver/459/Commander/app/views/news/index.html.erb
+END
+hello.rhtml
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/commander_project/!svn/ver/387/Commander/app/views/news/hello.rhtml
+END
+_new.rhtml
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/commander_project/!svn/ver/225/Commander/app/views/news/_new.rhtml
+END

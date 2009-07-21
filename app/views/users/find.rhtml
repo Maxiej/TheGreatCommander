@@ -1,0 +1,25 @@
+
+<div class = "default_style" id = "find_user">
+    
+    <div id = "find_user_text_div">
+      Login: <%= text_field_with_auto_complete :user, :login %>  
+      <%=  button_to_function "Find", "showUser();" %>
+    </div>
+    <div id = "find_user_loading" style = "display: none">
+            <%=image_tag("interactive_elements/ajax_loader.gif") %>      
+    </div>        
+</div>
+<div>
+  <div id ="show_user" style="display: none;">      
+  </div>  
+</div>    
+
+<div class= "default_style" id="show_user_right" style="overflow: scroll; display: none">
+  <div id = "owned_games">
+  </div>
+  
+</div>
+
+<div class = "error_message" id = "user_not_found" style="display: none" ></div>
+<div id ="user_login_found" style = "display: none"></div>
+

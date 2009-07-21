@@ -1,0 +1,74 @@
+<% if player != nil %>
+
+ <%if player.is_owner? %>
+        <div id="owner" align="center"><b>HOST</b></div>
+    <%else%>
+        <div id="owner" align="center"><b>CLIENT</b></div>
+    <%end%>
+
+<% if is_current %>
+  <% content_tag(:div, :id => "ready_image_current",:class => "ready_image", :align => "center",
+    :style => "display: #{star_display(player.is_ready)}; float: right; z-index: 1;") do %>
+            <%=  image_tag("others/star.PNG",
+                        :id => "is_ready",
+                        :size => "30x20",
+                        :border => 0) %> 
+  <%end%>
+<%else%>
+    <% content_tag(:div, :id => "ready_image_opponent",:class => "ready_image", :align => "center",
+        :style => "display: #{star_display(player.is_ready)}; float: right; z-index: 1;") do %>
+                <%=  image_tag("others/star.PNG",
+                            :id => "is_ready",
+                            :size => "30x20",
+                            :border => 0) %> 
+      <%end%>
+<%end%>
+
+   
+    
+    <div  id ="show_player_avatar">
+     
+       <% if player.user.avatar != nil %>
+         <%=  image_tag("/users/avatar/#{player.user.id}",
+                        :size => "#{ConstValues::AVA_PROFILE_SIZE_X-2}x#{ConstValues::AVA_PROFILE_SIZE_Y-2}",
+                        :border => 3, :style => "border-color: #{player.color}") %>  
+       <%else%>        
+         <%=  image_tag("others/no_photo.png",
+                        :id => "no_photo",
+                        :size => "#{ConstValues::AVA_PROFILE_SIZE_X-2}x#{ConstValues::AVA_PROFILE_SIZE_Y-2}",
+                        :border => 3, :style => "border-color: #{player.color}") %>         
+       <%end%>
+    </div>
+    <div>    
+      <b><%=h truncate(player.user.login,22) %> </b>
+      <% if !is_current %>
+            <span id="online">
+            <%= periodically_call_remote( :update => 'online',    
+                :url => { :action => 'online', :controller => "game"},
+                :complete => visual_effect(:highlight, 'online'), 
+                :frequency => 20,
+                :with => "'login=" +  player.user.login + "'" ) %>    
+            </span>
+      <%end%> <br/>
+        <%=h player.user.gender %>
+        <% unless player.user.date_of_birth.nil? %>
+            , <%=h player.user.age %> 
+        <%end%> <br/>
+        <% if is_current %>
+            <div id="current_gold_field"> <%=h player.gold %>$ </div>      
+        <%else%>
+            <div id="opponent_gold_field"> <%=h player.gold %>$ </div>      
+        <%end%>
+    </div>
+ <%else%>
+    <div  id ="no_user">   
+    <div id="owner" align="center"><b>NO USER</b></div>
+        <div  id ="show_player_avatar">
+         
+             <%=  image_tag("others/no_photo.png",
+                        :size => "#{ConstValues::AVA_PROFILE_SIZE_X}x#{ConstValues::AVA_PROFILE_SIZE_Y}",
+                        :border => 3) %>  
+            <div id = "non_user"> none user join </div>           
+        </div>
+    </div>
+<%end%>

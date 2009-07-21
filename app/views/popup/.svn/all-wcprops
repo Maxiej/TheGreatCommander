@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/commander_project/!svn/ver/474/Commander/app/views/popup
+END
+delete_game.rhtml
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/commander_project/!svn/ver/151/Commander/app/views/popup/delete_game.rhtml
+END
+authenticate_game.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/commander_project/!svn/ver/143/Commander/app/views/popup/authenticate_game.html.erb
+END
+_attack_result.rhtml
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/commander_project/!svn/ver/370/Commander/app/views/popup/_attack_result.rhtml
+END
+join_game.rhtml
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/commander_project/!svn/ver/474/Commander/app/views/popup/join_game.rhtml
+END

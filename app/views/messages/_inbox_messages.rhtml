@@ -1,0 +1,47 @@
+<div>  
+  
+  <table class = "show">
+    <tr class = "show_heading">
+      <td>From</td>      
+      
+      <td>Subject</td>
+      
+      <td>Date</td>                
+      
+      <td></td>      
+    </tr>    
+      
+<% @messages.each{ |m| %>   
+
+    <tr>             
+            
+      <td>
+        <%= is_read(m.id) %>
+            <%=link_to "#{h truncate(m.user.login,40)}",
+                {:controller => "users", :action => "show", :id => m.user.id} %>
+        <%= end_is_read(m.id) %>
+      </td>
+      
+      <td>       
+        <%= is_read(m.id) %>
+            <%=link_to( "#{h truncate(m.title,100)}", message_path(m.id) )%>        
+        <%= end_is_read(m.id) %>
+      </td>
+      
+      <td>
+        <%= is_read(m.id) %>
+            <%=h m.created_at %>
+        <%= end_is_read(m.id) %>
+      </td>
+      
+      <td>        
+        <%=link_to "Delete", message_path(m.id), :method => "delete",
+            :confirm => "Message '#{m.title}' will be deleted, are you sure?"%>
+      </td>           
+   </tr>  
+ 
+  
+<% } %>
+
+</table>
+</div>

@@ -1,0 +1,36 @@
+<div>  
+  
+  <table class = "show">
+    <tr class = "show_heading">
+      <td>To</td>      
+      
+      <td>Subject</td>
+      
+      <td>Date</td>                
+      
+      <td></td>      
+    </tr>    
+      
+<% @messages.each{ |m| %>
+
+    <tr>         
+      
+      <td>
+        <%=link_to( "#{ h truncate(m.to,40)}", user_path_by_login(m.to) ) %>
+      </td>
+      
+      <td>
+        <%=link_to( "#{h truncate(m.title,100)}", message_path(m.id) )%>        
+      </td>
+      
+      <td>
+        <%=h m.created_at %>
+      </td>
+      
+   </tr>
+  
+<% } %>
+
+</table>
+</div>
+

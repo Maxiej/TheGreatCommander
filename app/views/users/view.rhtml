@@ -1,0 +1,33 @@
+
+<div>
+  
+  <%= render :partial => "users/show" %>            
+
+  <div id = "user_profile">
+     <div class = "tabs">
+      <% content_tag(:div,:id => "0", :class => "#{active_tab(@active_tab,0)}") do %>
+       
+        <%= link_to_remote("Owned Games", {:update => 'tab_content',
+            :url => { :controller=> 'game', :action=>'owned_games',
+                    :id => current_user.id },            
+            :loading => "active_ajax_loading();", 
+            :complete => "deactive_ajax_loading(); change_tab('0','0');reset_flash();"},
+            {:class => "tab_link"}) %>  
+
+      <% end %>          
+            
+    </div>
+  
+    <div id = "user_profile_tab_content">
+      <div class = "default_style" style = "height: 250px; overflow: scroll">
+        <div id = "tab_content">        
+       
+            <%= render :partial => "game/owned_games" %>        
+        
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>
+

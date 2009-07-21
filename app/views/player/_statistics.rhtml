@@ -1,0 +1,16 @@
+
+<% content_tag :div, :id => "statistics_panel" do -%>   
+<% if !curr_player.nil? and !opp_player.nil? %>
+  <p2><u>WAR STATISTICS: </u></p2> <br/>
+  <b><%= curr_player.user.login %></b>:
+  <ul>
+    <li><b><%= opp_player.dead_units.length.to_s %></b> killed opponent's unit(s) </li>
+    <li><b><%= curr_player.alive_units.length.to_s %></b> alive unit(s)</li>
+    </ul>
+  <b><%= opp_player.user.login %></b>:
+  <ul>
+    <li><b><%= curr_player.dead_units.length.to_s %></b> killed opponent's unit(s)</li>
+    <li><b><%= opp_player.alive_units.length.to_s %></b> alive unit(s)</li>
+    </ul>
+  <%end%>
+<%end%>

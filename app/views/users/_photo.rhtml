@@ -1,0 +1,28 @@
+<div>
+  <%= error_messages_for :user %>
+  <% form_for :user, @user, :url =>  {:action => "change_photo", :controller => "users", :id => @user.id}, :html => {:id => 'user_form',
+        :multipart => true} do |f| %>
+  <table id="change_pass_fields" cellspacing="0" cellpadding="0" border="0">
+     <br/><br/>
+     <tr>
+        <th>
+          <%= f.label(:avatar, "Choose avatar: ", :class => "label_avatar") %>
+        </th>
+        <td>         
+          <%= f.file_field  :avatar, :size => 24 %>
+           Please upload file in size <%=ConstValues::AVATAR_SIZE_X%>x<%=ConstValues::AVATAR_SIZE_Y%>,
+              otherwise it will by scaled.
+        </td>
+      </tr>
+      
+       <br/>
+      <tr>     
+        <td/>
+        <td align="center">
+            <%= submit_tag 'Save'-%>
+        </td>
+      </tr>
+    
+  </table>
+  <%end%>
+</div>

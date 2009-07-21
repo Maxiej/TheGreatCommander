@@ -1,0 +1,69 @@
+<script>
+    Event.observe(window, 'load', loadAccordion, false);
+</script>
+
+<div class = "default_style" id="news_panel">
+  <%# if logged_in? %>
+      <%#= link_to "Let's play", :controller => 'game', :action => 'show',
+          :id => current_id %>
+  <%# else %>
+
+  <%# end %>
+  
+      <h3 class="news_title">News and comments:</h3>
+
+     <div id="vertical_container" >
+       <h1 class="accordion_toggle" onmouseover="reset_flash();">
+         <b>Authors: </b> Welcome
+        </h1>
+        <div class="accordion_content">  
+          <p>Welcome on our website. We are happy you want to join us...</p>
+         </div>
+       <% for new in available_news%>
+         <h1 class="accordion_toggle" onmouseover="reset_flash();">
+            <b><%= new.user.login %></b>: <%= new.title %>
+        </h1>
+        <div id="dynamicduo" class="accordion_content">  
+          <div class = "view_message_heading">
+              <%#*ladowanie avatara%>
+              <div class = "small_avatar">        
+               <%unless new.user.avatar.nil? %>
+                <%= image_tag(avatar_path(new.user_id), :class => "small_avatar_image")%>   
+               <%else%>
+                <%= image_tag('others/no_photo.png', :class => "small_avatar_image")%>   
+               <%end%>
+              </div>  
+              <%#*ladowanie loginu%>
+              <div id="news_login" class = "view_message_heading_information">
+                <% if logged_in? %>
+                  <b><%= link_to  new.user.login, user_path(new.user.id)%>  </b> wrote:
+                <%else%>
+                  <div><b><%= new.user.login %> </b> wrote:</div>
+                <%end%> 
+              </div> <br/>
+              <%#*ladowanie dynamicznie contentu%>
+              <% content_tag(:span, 
+                  :id => "span_#{new.id}") do%> Loading...
+              <%end%>
+             <div id="news_created_at" align="right">
+             <% content_tag(:div, 
+                  :id => "news_created_at_#{new.id}") do%> Loading...
+              <%end%>
+             </div>
+          </div>
+         </div>
+       <%end%>
+    </div>
+    <div class="comment_section"> 
+      <%if logged_in? %>
+            <%= render :partial => "news/new"%>
+      <%end%>
+    </div>
+  </div>
+  <div class = "default_style" id="ranking_panel">
+    <%= render :partial => "users/show_ranking/", :locals =>{ :all_users => User.find(:all)} %>
+  </div>
+  <%#*<div class="default_style" id="advertisments">%>
+    <%#*hello%>
+  <%#*</div>%>
+

@@ -1,0 +1,10 @@
+# TODO Operate on the page object
+if !@is_available  
+  page["login_availability"].hide()
+  page["login_availability"].innerHTML = "Login is not available!"
+  page.visual_effect :BlindDown, :login_availability
+else 
+   page["login_availability"].hide()
+end
+
+page["login_checking"].hide()

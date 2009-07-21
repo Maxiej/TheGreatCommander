@@ -1,0 +1,25 @@
+<div class="default_style"> <br/>
+
+<%if @is_player%>  
+    <%if @is_winner%>
+
+      <div>Your gold left: <b> <%= @winner.gold %>$</b></div>
+      <br/>
+      <%= render :partial => "player/statistics/", :locals => 
+                          { :curr_player => @winner, :opp_player => @looser}%>
+    <%else%>
+        <div> Your gold left: <b><%= @looser.gold %>$</b></div>
+      <br/>
+      <%= render :partial => "player/statistics/", :locals => 
+                          { :curr_player => @looser, :opp_player => @winner}%>
+    <%end%> <br/>
+<%else%>
+        <br/>
+        <%= render :partial => "player/statistics/", :locals => 
+                          { :curr_player => @winner, :opp_player => @looser}%>
+<%end%>  
+  <div align="center">
+     <%= link_to 'Click to go to other your games', :controller => 'game', :action => 'show_yours',
+              :id => current_user.id %>
+  </div> <br/>
+</div>

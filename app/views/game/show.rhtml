@@ -1,0 +1,135 @@
+<div class = "tabs">
+  <% content_tag(:div, :class => "#{active_tab(@active_tab,0)}") do %>
+     <%= link_to "Yours Battles", 
+                {:action => "show_yours", :id => current_user.id}, 
+                {:class => "tab_link"} %>
+  <% end %>
+  <% content_tag(:div, :class => "#{active_tab(@active_tab,1)}") do %>
+    <%= link_to "All Battles", 
+                {:action => "show_all", :id => current_user.id},
+                {:class => "tab_link"}%>
+  <% end %>
+</div>
+<div class = "default_style">
+  
+  <table class = "show">
+    <tr class = "show_heading">
+      <td>Name</td>      
+      
+      <td>Host</td>
+      
+      <td>Client</td>          
+      
+      <td>Map</td>
+      
+      <td>Password</td>
+      
+      <td>Status</td>
+      
+      <td></td>      
+      
+    </tr>
+    
+    
+  <% @games.each{ |game| %>
+       
+    <tr>  
+      <td>
+        <%=h  truncate(game.name,50) %>
+      </td>
+      
+      <td>
+        <% @host = game.players.find_by_is_owner(true) %>
+        <% if @host %>
+           
+            <%= link_to "#{h truncate(@host.user.login,20)}", 
+                {:controller => "users", :action => "show", :id => @host.user.id},
+                {:style => "color:#{ready_color(@host)}"} %>
+            
+        <% else %>  
+            none
+        <% end %>
+      </td>
+      
+      <td>
+        <% @client = game.players.find_by_is_owner(false) %>
+        <% if @client %>
+
+            <%= link_to "#{h truncate(@client.user.login,20)}", 
+                {:controller => "users", :action => "show", :id => @client.user.id},
+                {:style => "color:#{ready_color(@client)}"} %>
+
+        <% else %>  
+            none
+        <% end %>
+      </td>
+      
+      <td>
+        <%=h truncate(game.map.name,50) %>
+      </td>
+      
+      <td>
+        <% if game.password && game.password != "" %>
+          required             
+        <% else %>  
+          none
+        <% end %>
+      </td>
+      
+      <td>
+        <% if game.is_finished? %>
+            finished
+        <% else %>
+            
+            <% if game.started_at  %>
+                Started at: <%=h truncate(game.started_at.asctime.to_s,50) %>
+            <% else %>                
+                not started
+            <% end %>
+            
+        <% end %>
+       </td>
+      
+      <td>  
+        <%  if !game.is_finished %> 
+           <% if game.user_take_part?(@user) %>
+
+             <% if game.password && game.password != "" %>
+
+                <%= link_to "Play", {:controller => "popup",
+                  :action => "authenticate_game",:id => game.id  }, :class => 'lbOn'   -%>
+
+             <% else %>
+
+                <%=  link_to "Play", :action => 'play', :id => game.id %>
+
+             <% end %>
+
+           <% else %>
+              <% if game.can_join? %>                             
+
+                  <%= link_to "Join", {:controller => "popup",
+                       :action => "join_game",:id => game.id  }, :class => 'lbOn'-%>              
+
+              <% end %>
+           <% end %> 
+        <%else%>
+             <%=  link_to "See details", :action => 'finish_game', 
+                    :id => game.get_looser_id %>
+        <%end%>  
+      </td>      
+    </tr>
+    
+  <% } %>
+    
+</table>
+
+<%= will_paginate @games %>
+
+<div align="right" >      
+      <span style="color:green">ready</span>/
+      <span style="color:red">unready</span>
+    </div>
+</div>
+
+

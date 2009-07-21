@@ -1,0 +1,9 @@
+# TODO Operate on the page object
+# page << "document.onmouseover = alertCoord();"
+#page.alert("blah")
+#page[:debug].innerHTML = @id.to_s
+#page << "document[#{@id.to_s}].src = '/unit/show/1'"
+
+
+
+

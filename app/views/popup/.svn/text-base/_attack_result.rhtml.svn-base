@@ -1,0 +1,9 @@
+
+<div align = "center" style = "margin-top: 20px">
+  RESULT OF YOUR ATTACK:
+</div>
+
+
+<div style="position: absolute; top:180px; left:450px;" >
+    <a href="#" class="lbAction" rel="deactivate">Cancel</a>    
+</div>

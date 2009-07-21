@@ -1,0 +1,29 @@
+#page.alert(@user.email)
+if @user
+  page.assign  :userFound, true
+  page[:user_not_found].hide()
+  
+  page[:show_user].hide()
+  page[:show_user].replace :partial => "show"
+  page.visual_effect :BlindDown, :show_user 
+  
+  page[:show_user_right].hide()  
+  
+#  page[:show_user_right].setStyle( :height => '300px')
+#  page << "alert( $(\"show_user\").getHeight() )"  
+  page << "$(\"show_user\").style.height = 285 + \"px\";"  
+  page << "$(\"show_user_right\").style.height = ($(\"show_user\").getHeight() - 10) + \"px\";"  
+  page.replace 'owned_games', :partial => 'game/owned_games'
+  page.visual_effect :BlindDown, :show_user_right 
+else 
+  page[:show_user_right].hide()
+  page.assign  :userFound, true
+#  page << "alert(userFound)"
+  page[:user_not_found].hide()
+  page[:show_user].hide()
+  page[:user_not_found].innerHTML = "User not found!"
+  page.visual_effect :BlindDown, :user_not_found  
+end
+
+  page[:find_user_loading].hide()
+

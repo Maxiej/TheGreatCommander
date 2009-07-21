@@ -1,0 +1,13 @@
+<div align="center">
+  <br/>
+  <br/>
+  <br/>
+  <b>You are about to delete game:</b><br/>
+  <%=h truncate(@game.name,30) %><br/>
+  <br/>
+  Are you sure ? 
+  <br/>
+  <%= link_to "Yes", {:controller => 'game', :action => 'delete', :id => @game.id} %> 
+  &nbsp;&nbsp;&nbsp;
+  <a href="#" class="lbAction" rel="deactivate">No</a>    
+</div>

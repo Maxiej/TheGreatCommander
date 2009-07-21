@@ -1,0 +1,19 @@
+<h2>Ranking</h2>
+<% for user in get_top_users%>
+ <%if !logged_in?%>
+  <b><%=  user.login%> </b>
+<%else%>
+  <b><%= link_to  user.login, user_path(user.id)%> </b>
+<%end%>
+    <% unless user.no_of_wins.nil? %>
+        (wins: <%=  user.no_of_wins %>,
+    <%else%>
+        (wins: 0,
+    <%end%>
+    <% unless user.no_of_losses.nil? %>
+        losses: <%=  user.no_of_losses %>)<br/>
+    <%else%>
+        losses: 0 )<br/>
+    <%end%>
+<br/>
+<%end%>

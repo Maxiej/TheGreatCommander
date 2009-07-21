@@ -1,0 +1,32 @@
+
+
+<% content_tag :div, :id => "unit_info_left" do -%>     
+  <div id="unit_info">
+    <br/>
+  <p2> <u>AVAILABLE UNIT DETAILS:</u> </p2> <br/>
+  <p2> Name: </p2> <p1> <%= u_name %> </p1> <br/>
+  <p1> <p2> Hit points: </p2> <%= u_hp %> <br/> </p1>
+  <p1> <p2> Price: </p2> <%= u_price %>$ <br/> </p1>
+  <p2> Strength: </p2> <p1><%= u_strength %> </p1> <br/> 
+  <%#*<p1> <p2> Strength range: </p2> <%= u_str_range <br/> </p1>%>
+  <p1> <p2> Move range: </p2> <%= u_move_range %> <br/> </p1>
+  <%#*<p1> <p2> Attack range: </p2> <%= u_atck_range  <br/> </p1>%>
+  <p1> <p2> Armor: </p2> <%= u_armor %> </p1>
+  <%#*<br/>%> 
+  <%#*<p1> <p2> Is flying?: </p2>%> 
+  <%#  if (u_is_flying)%>
+        <%#*Yes%> 
+  <%#else%>
+        <%#*No%>
+  <%#end%>
+        <%#*<br/> </p1>%>
+  <%#*<p1> <p2> Is shooting?: </p2>%> 
+    <%#  if (u_is_shooting)%>
+        <%#*Yes%> 
+    <%#else%>
+        <%#*No%>
+    <%#end%> 
+<%#*</p1>%>
+        <%#*<br/>%>
+ </div> 
+<% end -%>

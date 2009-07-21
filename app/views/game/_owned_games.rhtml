@@ -1,0 +1,89 @@
+
+  <div id = "owned_games">
+  
+    <table class = "show_games">
+      <tr class = "show_games_heading">
+        <td>Name</td>                 
+
+        <td>Client</td>          
+
+        <td>Map</td>
+
+        <td>Password</td>
+
+        <td>Status</td>
+
+        <td></td>      
+
+      </tr>
+
+
+      <% @games.each{ |game| %>
+
+        <tr>  
+          <td>
+            <%=h truncate(game.name,50) %>
+          </td>    
+
+          <td>
+            <% @client = game.players.find_by_is_owner(false) %>
+            <% if @client %>
+
+                <%= link_to "#{h truncate(@client.user.login,20)}", 
+                    {:controller => "users", :action => "show", :id => @client.user.id},
+                    {:style => "color:#{ready_color(@client)}"} %>
+
+            <% else %>  
+                none
+            <% end %>
+          </td>
+
+          <td>
+            <%=h truncate(game.map.name,50) %>
+          </td>
+
+          <td>
+            <% if game.password && game.password != "" %>
+              required             
+            <% else %>  
+              none
+            <% end %>
+          </td>
+
+          <td>
+            <% if game.is_finished? %>
+                finished
+            <% else %>
+
+                <% if game.started_at  %>
+                    Started at: <%=h truncate(game.started_at.to_s,20) %>
+                <% else %>                
+                    not started
+                <% end %>
+
+            <% end %>
+           </td>
+
+          <td>   
+
+            <% if current_user.can_delete?(game.id) %>               
+
+                <%= link_to "Delete", {:controller => 'game',
+                  :action => 'delete',:id => game.id},
+                  :confirm => "Game '#{game.name}' will be deleted, are you sure?" %> 
+
+             <% end %>
+
+          </td>      
+        </tr>
+
+      <% } %>
+
+    </table>
+
+    <div align="right" >      
+        <span style="color:green">ready</span>/
+        <span style="color:red">unready</span>
+    </div>
+  
+  </div>  

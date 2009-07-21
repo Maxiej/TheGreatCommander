@@ -1,0 +1,439 @@
+body {
+    padding:5px;
+    font-family: Lucida Calligraphy,DejaVu Serif;
+    <%#*font-family: georgia;%>
+    font-size: 12px;
+    font-style: inherit;
+    font-weight: normal;
+    font-variant: normal;
+    background-color: #C3B091
+}
+
+div#main {      
+    float: left;    
+}
+
+div#wrapper {
+    width: <%= @wrapper_width %>px;
+    margin:0 auto;f
+}
+
+div#header, div#footer {    
+    text-align: center;
+}
+
+div#header {
+    background-image: url('../images/others/headerx.png');
+    height: <%= @header_height%>px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+div#footer {
+    height: <%= @footer_height %>px;
+    margin-top: 20px;
+    clear: both;
+    visibility: hidden;
+    vertical-align: text-bottom;
+    background-color: #C3B091;
+}
+
+div#board {
+    background-color: #EBC2AF;        
+    margin-left: <%= @leftpanel_width %>px;
+    visibility: hidden;
+    width: <%= @board_size %>px;
+    height: <%= @board_size %>px;
+}
+
+div#left {      
+    width: <%= @leftpanel_width %>px;
+    background-color: <%= @color %>;
+    float: left;
+}
+
+div#right {
+    width: <%= @rightpanel_width %>px;
+    background-color: <%= @color %>;  
+    margin-left: <%= @board_size + @leftpanel_width %>px;
+}
+
+h1, h3 {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+h3 {
+    height: <%= @element_size%>px;
+}
+
+div.terrain {
+    width: <%= @element_size%>px;
+    height: <%= @element_size%>px;
+    margin-top: 0;
+    margin-bottom: 0;
+    float: left;
+}
+
+<%#-Maciek------------------------------------------------------------------*/%>
+div.arrow{
+    width: <%= @size_of_arrows %>px;
+    height: <%= @size_of_arrows %>px;
+    margin-top: 0;
+    margin-bottom: 0;
+    float: left;
+    z-index: 4;
+}
+
+div#arrow_up{
+    position: relative;
+    top: <%= @arrow_up[0] %>px;
+    left: <%= @arrow_up[1] %>px;
+}
+
+div#arrow_down{
+    position: relative;
+    top: <%= @arrow_down[0] %>px;
+    left: <%= @arrow_down[1] %>px;
+}
+
+div#arrow_left{
+    position: relative;
+    top: <%= @arrow_left[0] %>px;
+    left: <%= @arrow_left[1] %>px;
+}
+
+div#arrow_right{
+    position: relative;
+    top: <%= @arrow_right[0] %>px;
+    left: <%= @arrow_right[1] %>px;
+}
+
+div.offset{
+    display: none;
+}
+
+<%#*find user%>
+div#find_user{    
+    float: none;
+    height: 40px;
+}
+div#find_user_text_div{
+    padding: 10px 5px 10px 5px;
+    float: left;
+}
+
+div#find_user_loading{
+    padding: 12px 5px 10px 5px;        
+}
+
+<%#*show user%>
+div#show_user_avatar{
+    width: <%= @AVATAR_SIZE_X %>px;
+    padding: 5px 5px 5px 5px;
+}
+
+div#show_user{    
+    width: <%= @SHOW_USER_WIDTH %>px;
+    float: left;
+}
+
+div#show_user_right{    
+    <%#*margin-left: <%= @SHOW_USER_RIGHT_WIDTH -@SHOW_USER_RIGHT_WIDTHpx;%>    
+}
+
+div#user_profile{
+     margin-left: <%= @SHOW_USER_WIDTH %>px;
+}
+
+<%#*Signup form%>
+div.error_message{    
+    border: 5px solid #f66;
+    background-color: #FEE0C6;    
+}
+
+table#signup_fields td {
+    padding:0 0 8px 0;      
+    vertical-align:top;
+    width:40px;
+}
+table#signup_fields th {
+    width:140px;
+    padding:0 0 8px 0;
+    text-align:left;
+    vertical-align:top;
+}
+
+table#login_fields td {    
+    padding:0 0 8px 0;  
+    vertical-align:top;
+}
+table#login_fields th {
+    width:140px;
+    padding:0 0 8px 0;
+    text-align:left;
+    vertical-align:top;
+}
+
+<%#*Header%>
+div#avatar_thumbnail{
+    float:right;
+}
+
+span#online_status{
+    font-size: smaller;
+    font-style: inherit;    
+    color: green;
+    padding-right: 8px;
+}
+div#header_login{
+    padding-right: 16px;
+    padding-top: 8px;
+    text-align: right;      
+}
+div#header_login a{
+  color: brown;
+  font-weight: bold;
+  background-color: transparent;
+}
+
+div#header_logo { 
+    padding-left: 2px;
+    <%#*padding-top: 1px;%>
+    <%#*padding-bottom: 1px;%>
+    height: <%= @header_height %>px;
+    float: left;
+    margin-left: -30px;
+    margin-top: -25px;
+}
+
+div#header_menu { 
+    padding-left: 5px;
+    padding-top: 55px;    
+    float:left;
+}
+<%#*flash%>
+div#notification {
+  border: 5px solid #9c9;
+  background-color: #cfc;
+  padding: 5px;
+  <%#*margin: 10px 0;%>
+}
+div#error {
+  border: 5px solid #f66;
+  background-color: #FEE0C6;
+  padding: 5px;
+  <%#*margin: 10px 0;%>
+}
+
+div.fieldWithErrors {
+    border: 5px solid #f66;
+}
+<%#*default style%>
+.default_style{
+    border: <%= @DEFAULT_BORDER%>px solid <%=  @color_desert_sand %>;
+    background-color: <%= @color_yellow_mist %>;    
+}
+div#menu_title{
+    background-color: #C19A6B;
+    font-size: 20px;
+}
+
+<%#*show games, show messages%>
+table.show{
+ border-spacing: 0px;
+ margin-left: 10px;
+}
+
+table.show tr.show_heading{
+    font-weight: bold;
+}
+
+table.show td{
+   border-bottom: 1px <%= @color_desert_sand %> solid;
+   width: 120px;
+   padding: 5px;
+}
+
+<%#*tabs%>
+
+div.tabs{
+    width: 100%;
+    height: <%= @TABS_HEIGHT +2 %>px; 
+}
+div.active_tab{
+    float: left;
+    background-color: <%=  @color_desert_sand %>;
+    padding: 10px;
+}
+
+div.nonactive_tab{
+    float: left;
+    background-color:  <%= @color_yellow_mist %>;
+    padding: 10px;
+}
+
+a.tab_link{
+    text-decoration: none;
+    color: black;
+}
+
+a.tab_link:visited {
+    color: black;
+}
+
+a.tab_link:hover {
+ text-decoration: underline overline;
+ color: #191970;
+ <%#*background-color: #C9C3ED;%>
+}
+
+<%#*messages%>
+
+div#compose_message{
+    padding: 15px;
+}
+
+div.compose_message_div{
+    width: 215px;
+}
+
+div.compose_message_content_div{
+    width: 510px;
+}
+
+img.inbox_ajax_loader{
+    padding-left: 10px; 
+    padding-top: 10px;
+}
+
+img.small_avatar_image{
+    width: 30px;
+    height: 40px;
+    padding: 5px;
+}
+
+div.small_avatar{
+    float: left;
+}
+
+div.view_message_heading{
+    padding: 5px;
+    float: none;
+}
+
+div.view_message_heading_information{
+    padding: 3px;
+}
+
+div.view_message_subject{
+    margin-top: 20px;
+    padding-left: 10px;
+}
+
+div.view_message_content{
+    padding-left: 10px;
+    padding-bottom: 10px;
+}
+
+<%#*--------------------------------------------------------------------------%>
+<%#*ewa%>
+<%#*change profile and password%>
+table#change_pass_fields td {
+    padding:0 0 8px 0;      
+    vertical-align:top;
+    align: center;
+    width:40px;
+}
+table#change_pass_fields th {
+    width:140px;
+    padding:0 0 8px 0;
+    text-align:left;
+    align: center;
+    vertical-align:top;
+}
+
+table#change_pass_fields th label{
+    font-weight: normal;
+}
+
+<%#*news%>
+
+div#compose_news{
+    padding: 15px;
+    background: #FFFDD0;
+}
+
+div.compose_new_div{
+    width: 215px;
+}
+
+div.compose_new_content_div{
+    width: 510px;
+}
+
+h3.news_title{
+    padding-left: 15px;
+    padding-top: 15px;
+    background: #FFFDD0;
+}
+
+<%#*about%>
+img.small_photo_image{
+    width: 80px;
+    height: 100px;
+    padding: 5px;
+    border: 1px solid <%= @color_desert_sand %>;
+}
+
+div.view_photo_information{
+    padding: 5px;
+}
+
+table.show_photos td{
+   border-bottom: 1px <%= @color_desert_sand %> solid;
+   width: 860px;
+   padding: 5px;
+}
+
+table.show_photos{
+ border-spacing: 0px;
+ margin-left: 10px;
+}
+
+<%#*console%>
+
+div.console{
+  border: 5px solid #D2B48C;
+  background-color: <%= @color_yellow_mist %>;
+  padding: 5px;
+  height: 25px;
+  overflow: auto;
+}
+div.game_name{
+  height: 15px;
+  background-image: url('../images/others/console.png');
+  text-align: center;
+  font-weight: bold;
+}
+
+div#news_panel{
+    width: 622px;
+     float: left;
+}
+div#ranking_panel{
+    width: 250px;
+    background-image: url('../images/others/ranking4.png');
+    text-align: center;
+    float:right;
+}
+div#advertisments{
+    width: 250px;
+    float:right;
+    margin-top: 10px;
+}
+
+div#ewa{
+    float:left;
+    width: 450px;
+}

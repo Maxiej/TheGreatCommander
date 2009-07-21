@@ -1,0 +1,13 @@
+<% for terrain_pos in @map_positions %>   
+
+               <% content_tag(:div, 
+                 :id => "div_" + controller.div_element_id(terrain_pos.x, terrain_pos.y),
+                 :class => "terrain") do %> 
+
+                    <%= image_tag("/terrain/show/" + terrain_pos.terrain.id.to_s,
+                        :name => controller.div_element_id(terrain_pos.x, terrain_pos.y),
+                        :alt => "[#{terrain_pos.x.to_s},#{terrain_pos.y.to_s}]")%>       
+
+                <% end %>
+                
+<% end %> 

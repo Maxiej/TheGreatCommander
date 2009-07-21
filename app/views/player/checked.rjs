@@ -1,0 +1,56 @@
+#page.call :hideAttackResultToolTip
+
+if @opp
+  #generowanie informacji o player unit dla opponenta   
+  #zamiana partiala
+  page.replace 'unit_info_right', :partial => 'player/player_unit_info',
+     :locals => { :side => "right", :player_unit => @player_unit,}
+  
+  @player.player_units.each do |pu|
+    if(pu.is_alive?)
+      if pu == @player_unit
+        if(@player.is_ready)
+#          if(pu.is_turn) and @player.is_turn 
+#            page << "changeDivImageToChecked(#{pu.id.to_s},#{@player.id.to_s},#{pu.unit.id})"
+  #        else
+            page << "changeDivImageToBlockedChecked(#{pu.id.to_s},#{@player.id.to_s},#{pu.unit.id})"
+#          end
+        else
+          page << "changeDivImageToNormal(#{pu.id.to_s},#{@player.id.to_s},#{pu.unit.id})"
+        end
+        
+      else
+        page << "changeDivImageToNormal(#{pu.id.to_s},#{@player.id.to_s},#{pu.unit.id})"     
+      end
+    end
+  end
+
+else
+  #genetowanie informacji o player unit dla playera
+  #zamiana partial
+  page.replace 'unit_info_left', :partial => 'player/player_unit_info',
+    :locals => { :side => "left", :player_unit => @player_unit }  
+  
+  @player.player_units.each do |pu|
+    if pu.is_alive?
+      if pu == @player_unit        
+        if(@player.is_ready)
+          if(pu.is_turn) and @player.is_turn
+            page << "changeDivImageToChecked(#{pu.id.to_s},#{@player.id.to_s},#{pu.unit.id})"
+          else
+            page << "changeDivImageToBlockedChecked(#{pu.id.to_s},#{@player.id.to_s},#{pu.unit.id})"
+          end
+        else
+          page << "changeDivImageToChecked(#{pu.id.to_s},#{@player.id.to_s},#{pu.unit.id})" 
+        end
+      elsif (pu.is_turn and @player.is_turn) or !@player.is_ready
+        page << "changeDivImageToNormal(#{pu.id.to_s},#{@player.id.to_s},#{pu.unit.id})" 
+      else
+#        page << "changeDivImageToBlockedChecked(#{pu.id.to_s},#{@player.id.to_s},#{pu.unit.id}})"
+        page << "changeDivImageToBlocked(#{pu.id.to_s},#{@player.id.to_s},#{pu.unit.id})"       
+      end
+    end
+  end
+  #zaznczanie playera i odznaczenie wszystkich innych
+end
+#page.alert(@player_unit.to_s)

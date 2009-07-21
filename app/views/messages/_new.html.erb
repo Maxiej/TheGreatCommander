@@ -1,0 +1,28 @@
+<%= error_messages_for :message %>
+
+<div id = "compose_message">
+  <% form_for( :message, @message,:url => {:action => "create"} ) do |m| %>
+                      
+          <%= m.label(:to, "Send a message to: ") %><br/>          
+          <%= m.text_field :to %><br/>    
+
+          <div class="compose_message_div">
+            <%= m.label(:title, "Subject: ") %><br/>
+          </div>
+          
+          <div class="compose_message_div">
+            <%= m.text_field :title %><br/>    
+          </div>
+          
+          <div class="compose_message_div">
+            <%= m.label(:content, "Content: ") %><br/>
+          </div>
+          
+          <div class="compose_message_content_div">
+            <%= m.text_area :content, :cols => 60, :rows => 20 -%><br/>             
+          </div>
+
+          <%= submit_tag 'Send Message'-%> 
+
+  <% end %>
+</div>

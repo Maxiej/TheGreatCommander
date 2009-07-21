@@ -1,0 +1,7 @@
+#javascript method is expired after changing position of unit
+#this position is added to hidden field 
+
+page["unit_move_pos"].innerHTML = set_all_units_pos(@curr_player.id, @opp_player_id); 
+
+
+

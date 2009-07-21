@@ -1,0 +1,20 @@
+<%= error_messages_for :message %>
+  <h3 class="news_title"> Add News </h3>
+<div id = "compose_news">
+  <% form_for( :new, @new,:url => {:action => "add_comment", :controller => "news"} ) do |m| %>     
+          <%= m.label(:to, "Title: ") %><br/>          
+          <%= m.text_field :title %><br/>    
+
+          <div class="compose_new_div">
+            <%= m.label(:content, "Content: ") %><br/>
+          </div>
+          
+          <div class="compose_new_div">
+            <%= m.text_area :content, :cols => 60, :rows => 10 %><br/>    
+          </div>
+          
+          <br/>
+          <%= submit_tag 'Add'%> 
+
+  <% end %>
+ </div>

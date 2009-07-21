@@ -1,0 +1,258 @@
+
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<!--
+
+    Methods
+
+  -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Methods</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link rel="stylesheet" href="rdoc-style.css" type="text/css" />
+  <base target="docwin" />
+</head>
+<body>
+<div id="index">
+  <h1 class="section-bar">Methods</h1>
+  <div id="index-entries">
+    <a href="classes/AuthenticatedSystem.html#M000206">access_denied (AuthenticatedSystem)</a><br />
+    <a href="classes/Player.html#M000017">action_ready_received? (Player)</a><br />
+    <a href="classes/Player.html#M000018">action_updated (Player)</a><br />
+    <a href="classes/GameHelper.html#M000165">active_tab (GameHelper)</a><br />
+    <a href="classes/NewsController.html#M000147">add_comment (NewsController)</a><br />
+    <a href="classes/Game.html#M000107">add_player (Game)</a><br />
+    <a href="classes/Car.html#M000152">add_tires (Car)</a><br />
+    <a href="classes/User.html#M000052">age (User)</a><br />
+    <a href="classes/PlayerUnit.html#M000092">attack (PlayerUnit)</a><br />
+    <a href="classes/PlayerHelper.html#M000224">attack_opponent_result_info (PlayerHelper)</a><br />
+    <a href="classes/PopupController.html#M000144">attack_result (PopupController)</a><br />
+    <a href="classes/PlayerHelper.html#M000223">attack_result_info (PlayerHelper)</a><br />
+    <a href="classes/User.html#M000041">authenticate (User)</a><br />
+    <a href="classes/GameController.html#M000130">authenticate (GameController)</a><br />
+    <a href="classes/PopupController.html#M000141">authenticate_game (PopupController)</a><br />
+    <a href="classes/User.html#M000044">authenticated? (User)</a><br />
+    <a href="classes/AuthenticatedTestHelper.html#M000200">authorize_as (AuthenticatedTestHelper)</a><br />
+    <a href="classes/AuthenticatedSystem.html#M000204">authorized? (AuthenticatedSystem)</a><br />
+    <a href="classes/NewHelper.html#M000155">available_news (NewHelper)</a><br />
+    <a href="classes/UsersController.html#M000063">avatar (UsersController)</a><br />
+    <a href="classes/User.html#M000056">avatar= (User)</a><br />
+    <a href="classes/UsersHelper.html#M000156">avatar_path (UsersHelper)</a><br />
+    <a href="classes/Dog.html#M000096">bark (Dog)</a><br />
+    <a href="classes/Dog.html#M000099">big_bark (Dog)</a><br />
+    <a href="classes/Player.html#M000010">block_all_units (Player)</a><br />
+    <a href="classes/GameHelper.html#M000166">button_display (GameHelper)</a><br />
+    <a href="classes/UnitController.html#M000086">buy (UnitController)</a><br />
+    <a href="classes/Map.html#M000101">buy_area? (Map)</a><br />
+    <a href="classes/Player.html#M000025">can_buy? (Player)</a><br />
+    <a href="classes/User.html#M000058">can_delete? (User)</a><br />
+    <a href="classes/Game.html#M000106">can_join? (Game)</a><br />
+    <a href="classes/Map.html#M000100">can_move? (Map)</a><br />
+    <a href="classes/Player.html#M000005">change_money (Player)</a><br />
+    <a href="classes/UsersController.html#M000071">change_password (UsersController)</a><br />
+    <a href="classes/UsersController.html#M000073">change_photo (UsersController)</a><br />
+    <a href="classes/UsersController.html#M000072">change_profile (UsersController)</a><br />
+    <a href="classes/ApplicationHelper.html#M000227">change_tab (ApplicationHelper)</a><br />
+    <a href="classes/UsersController.html#M000062">check_login (UsersController)</a><br />
+    <a href="classes/PlayerController.html#M000119">checked (PlayerController)</a><br />
+    <a href="classes/PopupHelper.html#M000162">color_occupeid (PopupHelper)</a><br />
+    <a href="classes/Player.html#M000020">connect (Player)</a><br />
+    <a href="classes/GameHelper.html#M000184">console_afford (GameHelper)</a><br />
+    <a href="classes/GameHelper.html#M000181">console_all_destroyed (GameHelper)</a><br />
+    <a href="classes/GameHelper.html#M000170">console_attack (GameHelper)</a><br />
+    <a href="classes/GameHelper.html#M000171">console_attacking (GameHelper)</a><br />
+    <a href="classes/GameHelper.html#M000169">console_buy (GameHelper)</a><br />
+    <a href="classes/GameHelper.html#M000179">console_cannot_move (GameHelper)</a><br />
+    <a href="classes/GameHelper.html#M000178">console_connected (GameHelper)</a><br />
+    <a href="classes/GameHelper.html#M000174">console_endturn (GameHelper)</a><br />
+    <a href="classes/GameHelper.html#M000177">console_money_changed (GameHelper)</a><br />
+    <a href="classes/GameHelper.html#M000168">console_move (GameHelper)</a><br />
+    <a href="classes/GameHelper.html#M000183">console_not_buy_area (GameHelper)</a><br />
+    <a href="classes/GameHelper.html#M000176">console_ready (GameHelper)</a><br />
+    <a href="classes/GameHelper.html#M000180">console_unit_destroy (GameHelper)</a><br />
+    <a href="classes/GameHelper.html#M000173">console_unit_on_other_unit (GameHelper)</a><br />
+    <a href="classes/GameHelper.html#M000172">console_unit_on_your_unit (GameHelper)</a><br />
+    <a href="classes/GameHelper.html#M000175">console_yourturn (GameHelper)</a><br />
+    <a href="classes/SessionsController.html#M000038">create (SessionsController)</a><br />
+    <a href="classes/MessagesController.html#M000036">create (MessagesController)</a><br />
+    <a href="classes/GameController.html#M000127">create (GameController)</a><br />
+    <a href="classes/UsersController.html#M000061">create (UsersController)</a><br />
+    <a href="classes/PlayerHelper.html#M000216">create_attack_tooltip (PlayerHelper)</a><br />
+    <a href="classes/UnitHelper.html#M000193">create_draggable_element (UnitHelper)</a><br />
+    <a href="classes/PlayerHelper.html#M000220">create_image_tag_for_opponent (PlayerHelper)</a><br />
+    <a href="classes/PlayerHelper.html#M000219">create_image_tag_for_player (PlayerHelper)</a><br />
+    <a href="classes/UnitHelper.html#M000191">create_image_tag_for_unit (UnitHelper)</a><br />
+    <a href="classes/PlayerHelper.html#M000225">create_link_close (PlayerHelper)</a><br />
+    <a href="classes/Player.html#M000014">create_online (Player)</a><br />
+    <a href="classes/PlayerHelper.html#M000217">create_player_unit_checked_link (PlayerHelper)</a><br />
+    <a href="classes/PlayerHelper.html#M000218">create_player_unit_div (PlayerHelper)</a><br />
+    <a href="classes/UnitHelper.html#M000190">create_properties_info_link (UnitHelper)</a><br />
+    <a href="classes/UnitHelper.html#M000189">create_unit_div (UnitHelper)</a><br />
+    <a href="classes/ApplicationHelper.html#M000226">current_id (ApplicationHelper)</a><br />
+    <a href="classes/AuthenticatedSystem.html#M000202">current_user (AuthenticatedSystem)</a><br />
+    <a href="classes/AuthenticatedSystem.html#M000203">current_user= (AuthenticatedSystem)</a><br />
+    <a href="classes/GameController.html#M000133">delete (GameController)</a><br />
+    <a href="classes/PopupController.html#M000143">delete_game (PopupController)</a><br />
+    <a href="classes/MessagesController.html#M000029">destroy (MessagesController)</a><br />
+    <a href="classes/SessionsController.html#M000039">destroy (SessionsController)</a><br />
+    <a href="classes/Dog.html#M000097">display (Dog)</a><br />
+    <a href="classes/TerrainHelper.html#M000198">display (TerrainHelper)</a><br />
+    <a href="classes/GameController.html#M000128">div_element_id (GameController)</a><br />
+    <a href="classes/UsersController.html#M000066">edit (UsersController)</a><br />
+    <a href="classes/UsersHelper.html#M000160">email_unique? (UsersHelper)</a><br />
+    <a href="classes/User.html#M000043">encrypt (User)</a><br />
+    <a href="classes/User.html#M000042">encrypt (User)</a><br />
+    <a href="classes/User.html#M000054">encrypt_password (User)</a><br />
+    <a href="classes/MessageHelper.html#M000232">end_is_read (MessageHelper)</a><br />
+    <a href="classes/GameController.html#M000134">end_turn (GameController)</a><br />
+    <a href="classes/Game.html#M000109">end_turn (Game)</a><br />
+    <a href="classes/Player.html#M000015">end_turn (Player)</a><br />
+    <a href="classes/User.html#M000051">filename (User)</a><br />
+    <a href="classes/UsersController.html#M000067">find (UsersController)</a><br />
+    <a href="classes/Game.html#M000108">find_owned_games (Game)</a><br />
+    <a href="classes/GameController.html#M000124">finish_game (GameController)</a><br />
+    <a href="classes/User.html#M000049">forget_me (User)</a><br />
+    <a href="classes/Player.html#M000016">get_actions (Player)</a><br />
+    <a href="classes/UnitHelper.html#M000194">get_counter_x (UnitHelper)</a><br />
+    <a href="classes/UnitHelper.html#M000195">get_counter_y (UnitHelper)</a><br />
+    <a href="classes/GameHelper.html#M000164">get_game_name_by_id (GameHelper)</a><br />
+    <a href="classes/Game.html#M000114">get_looser_id (Game)</a><br />
+    <a href="classes/Player.html#M000012">get_opponent (Player)</a><br />
+    <a href="classes/Game.html#M000113">get_player_id_by_user_id (Game)</a><br />
+    <a href="classes/Unit.html#M000138">get_prev_pos (Unit)</a><br />
+    <a href="classes/NewsController.html#M000148">get_time (NewsController)</a><br />
+    <a href="classes/UsersHelper.html#M000161">get_top_users (UsersHelper)</a><br />
+    <a href="classes/UnitHelper.html#M000185">get_unit_info (UnitHelper)</a><br />
+    <a href="classes/Player.html#M000006">get_unit_pos (Player)</a><br />
+    <a href="classes/Player.html#M000007">get_unit_pos_x (Player)</a><br />
+    <a href="classes/Player.html#M000008">get_unit_pos_y (Player)</a><br />
+    <a href="classes/Unit.html#M000137">get_unit_position (Unit)</a><br />
+    <a href="classes/UnitHelper.html#M000186">get_unit_position_left (UnitHelper)</a><br />
+    <a href="classes/UnitHelper.html#M000187">get_unit_position_top (UnitHelper)</a><br />
+    <a href="classes/UsersHelper.html#M000158">height_of_show_user (UsersHelper)</a><br />
+    <a href="classes/ConcreteDog.html#M000089">hello (ConcreteDog)</a><br />
+    <a href="classes/User.html#M000059">how_many_unread (User)</a><br />
+    <a href="classes/UsersController.html#M000070">i_am_online (UsersController)</a><br />
+    <a href="classes/MessagesController.html#M000030">inbox (MessagesController)</a><br />
+    <a href="classes/MessagesController.html#M000031">inbox_messages (MessagesController)</a><br />
+    <a href="classes/User.html#M000053">inbox_messages (User)</a><br />
+    <a href="classes/AuthenticatedSystem.html#M000209">included (AuthenticatedSystem)</a><br />
+    <a href="classes/UsersController.html#M000079">index (UsersController)</a><br />
+    <a href="classes/NewsController.html#M000146">index (NewsController)</a><br />
+    <a href="classes/MenuController.html#M000154">instruction (MenuController)</a><br />
+    <a href="classes/PlayerUnit.html#M000094">is_alive? (PlayerUnit)</a><br />
+    <a href="classes/PlayerHelper.html#M000221">is_blocked (PlayerHelper)</a><br />
+    <a href="classes/UnitHelper.html#M000192">is_blocked_unit (UnitHelper)</a><br />
+    <a href="classes/Unit.html#M000139">is_on_board (Unit)</a><br />
+    <a href="classes/PlayerHelper.html#M000222">is_on_other_unit (PlayerHelper)</a><br />
+    <a href="classes/Unit.html#M000140">is_on_other_unit (Unit)</a><br />
+    <a href="classes/PlayerUnit.html#M000093">is_on_other_unit (PlayerUnit)</a><br />
+    <a href="classes/GameController.html#M000121">is_online (GameController)</a><br />
+    <a href="classes/Player.html#M000013">is_online (Player)</a><br />
+    <a href="classes/UsersController.html#M000069">is_online (UsersController)</a><br />
+    <a href="classes/User.html#M000057">is_owner? (User)</a><br />
+    <a href="classes/Game.html#M000115">is_player_by_user_id (Game)</a><br />
+    <a href="classes/MessageHelper.html#M000231">is_read (MessageHelper)</a><br />
+    <a href="classes/Game.html#M000110">is_started (Game)</a><br />
+    <a href="classes/Message.html#M000004">is_to? (Message)</a><br />
+    <a href="classes/Player.html#M000009">is_turn (Player)</a><br />
+    <a href="classes/GameController.html#M000131">join (GameController)</a><br />
+    <a href="classes/PopupController.html#M000142">join_game (PopupController)</a><br />
+    <a href="classes/GameHelper.html#M000163">join_game? (GameHelper)</a><br />
+    <a href="classes/UnitController.html#M000085">leave (UnitController)</a><br />
+    <a href="classes/AuthenticatedSystem.html#M000201">logged_in? (AuthenticatedSystem)</a><br />
+    <a href="classes/AuthenticatedTestHelper.html#M000199">login_as (AuthenticatedTestHelper)</a><br />
+    <a href="classes/AuthenticatedSystem.html#M000211">login_from_basic_auth (AuthenticatedSystem)</a><br />
+    <a href="classes/AuthenticatedSystem.html#M000212">login_from_cookie (AuthenticatedSystem)</a><br />
+    <a href="classes/AuthenticatedSystem.html#M000210">login_from_session (AuthenticatedSystem)</a><br />
+    <a href="classes/AuthenticatedSystem.html#M000205">login_required (AuthenticatedSystem)</a><br />
+    <a href="classes/Player.html#M000026">loose? (Player)</a><br />
+    <a href="classes/GameHelper.html#M000167">message (GameHelper)</a><br />
+    <a href="classes/UsersController.html#M000076">messages (UsersController)</a><br />
+    <a href="files/lib/test_rb.html#M000003">met (lib/test.rb)</a><br />
+    <a href="classes/GameController.html#M000129">move (GameController)</a><br />
+    <a href="classes/PlayerHelper.html#M000215">move_player_unit (PlayerHelper)</a><br />
+    <a href="classes/PlayerUnit.html#M000091">move_unit (PlayerUnit)</a><br />
+    <a href="classes/ConcreteDog.html#M000090">name (ConcreteDog)</a><br />
+    <a href="classes/Dog.html#M000098">name= (Dog)</a><br />
+    <a href="classes/SessionsController.html#M000037">new (SessionsController)</a><br />
+    <a href="classes/MessagesController.html#M000035">new (MessagesController)</a><br />
+    <a href="classes/UsersController.html#M000060">new (UsersController)</a><br />
+    <a href="classes/Car.html#M000150">new (Car)</a><br />
+    <a href="classes/Rectangle.html#M000135">new (Rectangle)</a><br />
+    <a href="classes/Dog.html#M000095">new (Dog)</a><br />
+    <a href="classes/NewsController.html#M000145">new_content (NewsController)</a><br />
+    <a href="classes/GameController.html#M000120">online (GameController)</a><br />
+    <a href="classes/UsersController.html#M000068">online (UsersController)</a><br />
+    <a href="classes/PlayerController.html#M000118">opponent_move (PlayerController)</a><br />
+    <a href="classes/GameController.html#M000132">owned_games (GameController)</a><br />
+    <a href="classes/MessageHelper.html#M000229">partial_name (MessageHelper)</a><br />
+    <a href="classes/UsersController.html#M000074">password (UsersController)</a><br />
+    <a href="classes/User.html#M000055">password_required? (User)</a><br />
+    <a href="classes/ApplicationHelper.html#M000228">periodically_call_remote (ApplicationHelper)</a><br />
+    <a href="classes/UsersController.html#M000077">photo (UsersController)</a><br />
+    <a href="classes/GameController.html#M000122">play (GameController)</a><br />
+    <a href="classes/Player.html#M000023">player_alive_units (Player)</a><br />
+    <a href="classes/Player.html#M000024">player_dead_units (Player)</a><br />
+    <a href="classes/UsersController.html#M000075">profile (UsersController)</a><br />
+    <a href="classes/RcssController.html#M000103">rcss (RcssController)</a><br />
+    <a href="classes/PlayerHelper.html#M000213">ready_color (PlayerHelper)</a><br />
+    <a href="classes/User.html#M000050">recently_activated? (User)</a><br />
+    <a href="classes/AuthenticatedSystem.html#M000208">redirect_back_or_default (AuthenticatedSystem)</a><br />
+    <a href="classes/User.html#M000046">remember_me (User)</a><br />
+    <a href="classes/User.html#M000047">remember_me_for (User)</a><br />
+    <a href="classes/User.html#M000048">remember_me_until (User)</a><br />
+    <a href="classes/User.html#M000045">remember_token? (User)</a><br />
+    <a href="classes/Player.html#M000021">save_action (Player)</a><br />
+    <a href="classes/Player.html#M000022">save_attack_action (Player)</a><br />
+    <a href="classes/UnitHelper.html#M000188">set_all_units_pos (UnitHelper)</a><br />
+    <a href="classes/Player.html#M000027">set_no_of_losses (Player)</a><br />
+    <a href="classes/Player.html#M000028">set_no_of_wins (Player)</a><br />
+    <a href="classes/Game.html#M000111">set_owner_next_turn (Game)</a><br />
+    <a href="classes/PlayerController.html#M000117">set_ready (PlayerController)</a><br />
+    <a href="classes/Player.html#M000019">set_turn (Player)</a><br />
+    <a href="classes/UnitController.html#M000087">set_units (UnitController)</a><br />
+    <a href="classes/UnitController.html#M000080">show (UnitController)</a><br />
+    <a href="classes/GameController.html#M000123">show (GameController)</a><br />
+    <a href="classes/SessionsController.html#M000040">show (SessionsController)</a><br />
+    <a href="classes/UsersController.html#M000064">show (UsersController)</a><br />
+    <a href="classes/PlayerController.html#M000116">show (PlayerController)</a><br />
+    <a href="classes/TerrainController.html#M000102">show (TerrainController)</a><br />
+    <a href="classes/MessagesController.html#M000034">show (MessagesController)</a><br />
+    <a href="classes/MenuController.html#M000153">show (MenuController)</a><br />
+    <a href="classes/GameController.html#M000126">show_all (GameController)</a><br />
+    <a href="classes/UnitController.html#M000084">show_all (UnitController)</a><br />
+    <a href="classes/UnitController.html#M000081">show_blocked (UnitController)</a><br />
+    <a href="classes/UnitController.html#M000083">show_blocked_checked (UnitController)</a><br />
+    <a href="classes/UnitController.html#M000082">show_checked (UnitController)</a><br />
+    <a href="classes/TerrainHelper.html#M000197">show_description (TerrainHelper)</a><br />
+    <a href="classes/UnitController.html#M000088">show_details (UnitController)</a><br />
+    <a href="classes/NewsController.html#M000149">show_news (NewsController)</a><br />
+    <a href="classes/MessagesController.html#M000033">show_sent (MessagesController)</a><br />
+    <a href="classes/UsersController.html#M000065">show_user (UsersController)</a><br />
+    <a href="classes/GameController.html#M000125">show_yours (GameController)</a><br />
+    <a href="files/lib/new_main_rb.html#M000001">some_mtd (lib/new_main.rb)</a><br />
+    <a href="classes/PlayerHelper.html#M000214">star_display (PlayerHelper)</a><br />
+    <a href="classes/AuthenticatedSystem.html#M000207">store_location (AuthenticatedSystem)</a><br />
+    <a href="classes/Car.html#M000151">tires (Car)</a><br />
+    <a href="files/lib/test_rb.html#M000002">tires_count (lib/test.rb)</a><br />
+    <a href="classes/Player.html#M000011">unblock_all_units (Player)</a><br />
+    <a href="classes/UnitHelper.html#M000196">unit_visibility (UnitHelper)</a><br />
+    <a href="classes/Game.html#M000112">units_quantity (Game)</a><br />
+    <a href="classes/GameHelper.html#M000182">update_console (GameHelper)</a><br />
+    <a href="classes/Game.html#M000104">user_game? (Game)</a><br />
+    <a href="classes/UsersHelper.html#M000157">user_path_by_login (UsersHelper)</a><br />
+    <a href="classes/Game.html#M000105">user_take_part? (Game)</a><br />
+    <a href="classes/UsersHelper.html#M000159">users_partial_name (UsersHelper)</a><br />
+    <a href="classes/MessagesController.html#M000032">view (MessagesController)</a><br />
+    <a href="classes/UsersController.html#M000078">view (UsersController)</a><br />
+    <a href="classes/AbstractDog.html#M000136">welcome (AbstractDog)</a><br />
+    <a href="classes/MessageHelper.html#M000230">your_message? (MessageHelper)</a><br />
+  </div>
+</div>
+</body>
+</html>

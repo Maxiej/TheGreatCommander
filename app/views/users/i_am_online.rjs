@@ -1,0 +1,2 @@
+page[:online_status].innerHTML =  "online"
+page[:online_status].set_style :color => 'green'

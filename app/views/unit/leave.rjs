@@ -1,0 +1,123 @@
+  
+unless @attacked_unit.nil?  #pulsowanie unitu atakujacego i atakowanego
+    page.visual_effect :Pulsate,  "[unit(#{@unit.id.to_s},#{@curr_player.id.to_s})]"
+    page.visual_effect :Pulsate,  "[unit(#{@attacked_unit.id.to_s},#{@opp_player_id.to_s})]"
+end
+
+#zwykle poruszenie sie, bez ataku
+if(@attacked_unit.nil?) 
+    #jednostka może być poruszona gdy:
+    # 1. gracze jest w fazie zasadniczej gry, ustawił jednostki (is_ready)
+    # 2. położył na pole, po którym może jednostka się poruszać (can_move)
+    # 3. położył w polu kuppnca  (buy_area)
+    # 4. jednostka nie jest położona na innej jednostce (on_other_your_unit)    
+    if @curr_player.is_ready and @can_move and @buy_area and !@on_other_your_unit
+      #blokuje jednostke, ponieważ wykonała ruch                
+      page.call :changeDivImageToBlocked,
+        "#{@unit.id.to_s}",
+        "#{@curr_player.id.to_s}",
+        "#{@unit.unit.id}"
+    else  
+      #odblokowywuje jednostke, ponieważ jest faza ustawiania lub ruch zostanie wycofany
+      page.call :createDraggableElement,
+        "#{@unit.id.to_s}",
+        "#{@curr_player.id.to_s}",
+        "#{@opp_player_id.to_s}",
+        "#{@unit.unit.unit_property.range_move.to_s}",
+        true   
+      page.call :changeDivImageToNormal,
+        "#{@unit.id.to_s}",
+        "#{@curr_player.id.to_s}",
+        "#{@unit.unit.id}"  
+    end
+ 
+    unless @buy_area
+      # jest faza ustawiania i jednostka została postawiona poza polem buy_area
+      page << move_player_unit(@unit,@curr_player)
+      page << update_console(console_not_buy_area)  
+    else
+      #trzeba wycofac jednostke jesli nie mozna jej ruszyc
+      unless @can_move 
+        page << move_player_unit(@unit,@curr_player)
+        #wypisuje informacje na konsoli
+        #page.alert console_cannot_move(@unit)
+        page << update_console(console_cannot_move(@unit.unit))  
+      end  
+    end
+    #jesli chcesz wrzucic swoj unit na inny swoj unit nastepuje wycofanie jednostki
+    if @on_other_your_unit 
+      page << update_console(console_unit_on_your_unit(@unit))
+      page << move_player_unit(@unit,@curr_player) 
+    end  
+else
+    #attack 
+    page << update_console(console_attacking(@unit,@attacked_unit))
+    if (!@attacked_unit.is_alive?)
+      #ukrycie unita atakowanego i wyswietlenie odpowiedniego komunikatu
+      page.call :hideUnit,
+        "#{@attacked_unit.id.to_s}",
+        "#{@opp_player_id.to_s}"
+      page << update_console(console_unit_destroy(@unit,@attacked_unit))
+    end
+    if (!@unit.is_alive?) #jesli unit atakujacy jest niezywy
+      #ukrycie unita atakujacego i wyswietlenie odpowiedniego komunikatu
+      page.call :hideUnit,
+        "#{@unit.id.to_s}",
+        "#{@curr_player.id.to_s}"
+      page << update_console(console_unit_destroy(@attacked_unit,@unit))
+    end
+    if (@unit.is_alive?) and (@attacked_unit.is_alive?)#jesli obydwa unity przezyly  
+      #wycofujemy unit atakujacy na swoje poprzednie miejsce i zablokowanie go
+      page << move_player_unit(@unit,@curr_player) 
+      page.call :changeDivImageToBlocked,
+        "#{@unit.id.to_s}",
+        "#{@curr_player.id.to_s}",
+        "#{@unit.unit.id}"
+    end
+    if (!@attacked_unit.is_alive?) and (!@unit.is_alive?)#jesli obydwa unity zginely
+      #wyswietlenie komunikatu o tym ze obydwa unity zginely
+      page << update_console(console_all_destroyed(@unit,@attacked_unit))
+    end 
+    
+    if @attacked_unit.is_alive? and @unit.is_alive?
+    #wyswietlenie komunikatu - tooltipa o rezultacie walki
+      page.call :showAttackResultToolTip,
+        "#{@unit.id.to_s}",
+        "#{@curr_player.id.to_s}",
+        false,#jest zabity????
+        "#{attack_result_info(@unit,@attacked_unit)}"
+    else
+      page.call :showAttackResultToolTip,
+        "#{@unit.id.to_s}",
+        "#{@curr_player.id.to_s}",
+        true,
+        "#{attack_result_info(@unit,@attacked_unit)}"
+    end
+    
+    #zmiana paneli bocznych i statystyk
+    page.replace 'unit_info_left', :partial => 'player/player_unit_info',
+      :locals => { :player_unit => @unit, :side => "left" }
+    page.replace 'unit_info_right', :partial => 'player/player_unit_info',
+      :locals => { :player_unit => @attacked_unit, :side => "right" }
+    page.replace 'statistics_panel', :partial => 'player/statistics',
+     :locals => { :curr_player => @curr_player, :opp_player => @opp_player}
+   
+end 
+
+#sprawdzenie czy czasem ktos nie wygral lub przegral  
+unless @attacked_unit.nil?
+  if(@curr_player.loose?)
+     page.redirect_to(:controller =>"game", :action => "finish_game", 
+       :id => @curr_player.id)
+  elsif @opp_player.loose?  
+     page.redirect_to(:controller =>"game", :action => "finish_game", 
+       :id => @opp_player.id)
+  end
+end
+    
+#zapisywane sa pozycje jednostek do tablicy js
+page["unit_move_pos"].innerHTML = set_all_units_pos(@curr_player.id, @opp_player_id)
+
+# wyłączany jest ajax w prawy górnym rogu
+page << "deactive_ajax_loading();"
+

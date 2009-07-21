@@ -1,0 +1,47 @@
+ <script type="text/javascript">
+   //<![CDATA[
+     userFound = true;
+   //]]>
+ </script>
+
+<% content_tag( :div,:id => "show_user",  :class => "default_style", 
+  :style => height_of_show_user(@user.id,current_user.id) ) do %>
+  <div  id ="show_user_avatar">
+    <% if @user.avatar != nil %>
+       <%=  image_tag("/users/avatar/#{@user.id}",
+                      :size => "#{ConstValues::AVATAR_SIZE_X}x#{ConstValues::AVATAR_SIZE_Y}",
+                      :border => 2) %>  
+    <%else%>
+       <%=  image_tag("others/no_photo.png",
+                        :size => "#{ConstValues::AVA_PROFILE_SIZE_X}x#{ConstValues::AVA_PROFILE_SIZE_Y}",
+                        :border => 2) %> 
+  <%end%>
+  </div>
+
+  <div>    
+      <b> <%=h truncate(@user.login,22) %> </b> <br/>
+
+      <%=h @user.gender %>
+         <% unless @user.date_of_birth.nil? %>
+            , <%=h @user.age %> 
+        <%end%>  
+      <br/>
+      <%=h truncate(@user.email,22) %>
+
+      <% if @user != current_user %>
+        <div id="online">
+          <%= periodically_call_remote( :update => 'online',    
+            :condition => "userFound == true",
+            :variable => "oPerCallRemote",
+            :url => { :action => 'online'},
+            :complete => visual_effect(:highlight, 'online'), 
+            :frequency => 20,
+            :with => "'login=" +  @user.login + "'" ) %>    
+        </div>
+        <div>          
+           <%= link_to "Send Message", {:controller => "messages",
+                  :action => "inbox",:id => @user.id, :tab => 2  }  -%>
+        </div>
+      <% end %>
+  </div>
+<% end %> 

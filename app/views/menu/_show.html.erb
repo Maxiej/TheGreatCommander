@@ -1,0 +1,21 @@
+       <%= link_to 'News', :controller => 'news', :action => 'index'
+            %>  |
+       <% if logged_in? %>
+          <%= link_to 'Battles', :controller => 'game', :action => 'show_yours',
+            :id => current_user.id %>         
+        | 
+          <%= link_to 'Create Battle', :controller => 'game', :action => 'new',
+            :id => current_user.id %>         
+        |
+          <%= link_to 'Find Users', :controller => 'users', :action => 'find',
+            :id => current_user.id %>   
+        |      
+          <%= link_to 'Your Profile', :controller => 'users', :action => 'show',
+              :id => current_user.id %>      
+        |  <%= link_to 'Inbox(' + current_user.how_many_unread +  ')', :controller => 'messages', :action => 'inbox',
+              :id => current_user.id, :tab => "0" %> |
+      <% end %>
+      <%= link_to 'Instruction', :controller => 'menu', :action => 'instruction'
+            %>
+      |  <%= link_to 'About', :controller => 'menu', :action => 'about'
+            %>

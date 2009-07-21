@@ -1,0 +1,68 @@
+<div class = "default_style">  
+<%= error_messages_for :game %>
+<%= error_messages_for :player %>
+   <% form_for( :game, @game, :url => { :action => "create" }) do |g| %>
+   <table id="create_games" cellspacing="0" cellpadding="0" border="0">  
+   <br/>
+      <tr> 
+        <td>
+          
+            <%= g.label(:name, "Name: ", :class => "create_game_label") %><br/>
+        </td>
+        <td>  
+            <%= g.text_field :name -%><br/>    
+        </td>
+      </tr>  
+      
+      <tr>
+        <td>
+            <%= g.label(:map_id, "Map: ", :class => "create_game_label") %><br/>
+        </td>
+        <td>
+            <%= select :game, :map_id, Map.find(:all).collect {|m| [ m.name, m.id ] }  %> <br/>    
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+            <%= g.label(:password, "Password: ", :class => "create_game_label") -%><br/>
+        </td>        
+        <td>
+            <%= g.password_field :password %><br/>    
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+            Choose your color: <br/>         
+        </td>
+        <td>          
+          <%= radio_button "player","color","red",:checked => true %>
+          <%= image_tag("colors/red.gif", :border => 1) %><br/>           
+          <%= radio_button "player","color","green" %>
+          <%= image_tag("colors/green.gif", :border => 1) %><br/>          
+          <%= radio_button "player","color","black" %>
+          <%= image_tag("colors/black.gif", :border => 1) %><br/>          
+          <%= radio_button "player","color","gray" %>
+          <%= image_tag("colors/gray.gif", :border => 1) %><br/>          
+          <%= radio_button "player","color","violet" %>
+          <%= image_tag("colors/violet.gif", :border => 1) %><br/>          
+          <%= radio_button "player","color","white" %>
+          <%= image_tag("colors/white.gif", :border => 1) %><br/>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+        </td>
+        <td>
+          <br/>
+            <%= submit_tag 'Create Battle'-%>
+        </td>
+      </tr>
+
+    <% end %>
+
+    </table>
+
+  </div>   

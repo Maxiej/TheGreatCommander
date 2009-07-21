@@ -1,0 +1,72 @@
+unless @on_other_unit #nie zmieniamy pieniedzy jesli polozymy unit na innym unicie
+  #zmiena pieniedzę
+  page["current_gold_field"].innerHTML = @curr_player.gold.to_s + '$';
+  page.visual_effect :Pulsate , :current_gold_field  
+end
+
+# usuwany jest stary unit div
+page["[availunit(" + @unit.id.to_s + "," + @curr_player.id.to_s + ")]"].replace ""
+
+#tworzony jest nowy unit div, identyczny z poprzednim i draggable element, bo 
+# został zniszczony 
+unit_div = create_unit_div(@unit,@curr_player,@opp_player_id) 
+page.insert_html :top, "unit_panel", unit_div
+page.call :createDraggableElement,
+  "#{@unit.id.to_s}",
+  "#{@curr_player.id.to_s}",
+  "#{@opp_player_id.to_s}",
+  "#{@unit.unit_property.range_move.to_s}",
+  false    
+#-----------------------------------
+
+  # tworzony jest player_div, wypadku kiedy postawiona jednostka jest na odpowiednim
+  # terenie i jest na polu buy i użytkownik ma odpowiednia ilosc pieniedzy i 
+  # nie ustawia unita na innym unicie na boardzie
+  if @can_move and @buy_area and !@on_other_unit and @can_buy
+    #jesli currentuser nie jest ready to nie wyswietlam unitow opponenta na planszy, tym 
+    #samym counter jest inny
+    if !@opp_player.nil? and (!@curr_player.is_ready and @opp_player.is_ready)
+      i = @curr_player.player_units.length
+      player_div = create_player_unit_div(@new_player_unit,@curr_player,@opp_player_id,
+        get_counter_x(i), get_counter_y(i), @offset)
+    else #gdy obydwaj gracze sa ready wszystkie unity sa wyswietlone
+      player_div = create_player_unit_div(@new_player_unit,@curr_player,@opp_player_id,
+        get_counter_x(@counter_x), get_counter_y(@counter_x), @offset)
+    end
+    #i wstawiany na koniec planszy, żeby się układ nie rozwalił
+    page.insert_html :before,"offsetX", player_div
+
+    #i do player div twrzony jest draggable element,ale tylko w fazie ustawiania
+    #ponieważ jak kupimy jednostką to ona nie ma ruchu, dopiero w następnej turze,
+    #akcja kupienia to jest wykonanie ruchu
+    unless  @curr_player.is_ready
+#      page << "createDraggableElement(#{@new_player_unit.id.to_s},#{@curr_player.id.to_s},#{@opp_player_id.to_s},#{@new_player_unit.unit.unit_property.range_move.to_s},true);"      
+       page.call :createDraggableElement,
+         "#{@new_player_unit.id.to_s}",
+         "#{@curr_player.id.to_s}",
+         "#{@opp_player_id.to_s}",
+         "#{@new_player_unit.unit.unit_property.range_move.to_s}",
+         true
+    else
+      #zmieniony zostanie image na blocked, poniewaz jednostka nie ma ruchu
+      page.call :changeDivImageToBlocked,
+        "#{@new_player_unit.id.to_s}",
+        "#{@curr_player.id.to_s}",
+        "#{@new_player_unit.unit.id})"
+    end
+    if @opp_player_id !=-1
+      page.replace 'statistics_panel', :partial => 'player/statistics',
+      :locals => { :curr_player => @curr_player, :opp_player => @opp_player}
+    end
+else
+  page << update_console(console_cannot_move(@unit)) unless @can_move
+  page << update_console(console_not_buy_area) unless @buy_area
+  page << update_console(console_unit_on_other_unit) if @on_other_unit
+  page << update_console(console_afford(@unit)) unless @can_buy
+end
+#wyłączany jest ajax_loader, prawy gorny rog
+page.call :deactive_ajax_loading
+
+#zapisywana tablica do hiddenfielda, zeby mozna bylo przesuwac jednostki
+page["unit_move_pos"].innerHTML = set_all_units_pos(@curr_player.id, @opp_player_id);
+

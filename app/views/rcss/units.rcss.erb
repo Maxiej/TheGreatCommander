@@ -1,0 +1,48 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+div.unit_panel{  
+    margin-left: 25px;    
+    background-image: url('../images/others/units.PNG');
+}
+
+div.unit{
+    z-index: 1;
+    width: <%= @element_size%>px;
+    height: <%= @element_size%>px;
+    margin-top: 0;
+    margin-bottom: 0;
+    float: left;
+    
+}
+
+div#unit_info{
+    width: <%= @leftpanel_width%>px;    
+    background-color: <%= @color_desert_sand %>;
+    float: left;
+    font-size: 11px;
+    }
+
+p1{
+    font_weight: normal;
+}
+
+p2{
+    font-weight: bold;
+}
+
+div#ut1 {    
+    float: left;
+    height: 17px;
+}
+
+div.unit_hidden_pos{
+    display: none;
+}
+
+div.end_turn{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    <%#*height: 36px;%>    
+}

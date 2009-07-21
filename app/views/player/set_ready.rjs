@@ -1,0 +1,54 @@
+
+#chowam przycisk ready, bo juz jestem ready
+page["ready"].hide()
+# jeśli jest ready,to pokazuje przycisk end_turn
+page["end_turn"].show()
+#wyswietlam gwiazke ktora informuje o tym ze user jest ready
+page["ready_image_current"].show()
+
+#jak klikam ready
+# jeśli drugi player nie jest ready to blokuje wszystkie jednostki
+
+  if !@op.nil? and (@p.is_ready and @op.is_ready)
+    i = @p.player_units.length
+    @op.player_units.each do |u|
+      #tworzymy jednostke przeciwnika
+      player_div = create_player_unit_div(u,@op,"",
+      get_counter_x(i), get_counter_y(i), @offset)
+      #i wstawiany na koniec planszy, żeby się układ nie rozwalił
+      page.insert_html :before,"offsetX", player_div    
+      i += 1
+    end
+     page["opponent_gold_field"].innerHTML = @op.gold.to_s + '$';
+     page.visual_effect :Pulsate , :opponent_gold_field  
+     page["unit_move_pos"].innerHTML = set_all_units_pos(@p.id, @op.id)
+
+    # gdy nie jest moja tura to musze zablokowac wszystkie jednostki   
+    unless @p.is_turn    
+    #blokuj wszystkie jednostki
+      @p.player_units.each{ |u| 
+        if u.is_alive?
+          page << "blockUnit(#{u.id.to_s},#{@p.id.to_s},#{u.unit.id.to_s},true)"  
+        end
+      }  
+      Unit.find(:all).each{ |u|
+        page << "blockUnit(#{u.id.to_s},#{@p.id.to_s},#{u.id.to_s},false)"  
+      }   
+     else
+       #jeśli jest twoja tura odblokuj przycisk koniec tury
+       page['end_turn_commit'].disabled = false
+     end 
+ else
+       #blokuj wszystkie jednostki, także do kupowania
+        @p.player_units.each{ |u| 
+          page << "blockUnit(#{u.id.to_s},#{@p.id.to_s},#{u.unit.id.to_s},true)"  
+        }  
+        Unit.find(:all).each{ |u|
+          page << "blockUnit(#{u.id.to_s},#{@p.id.to_s},#{u.id.to_s},false)"  
+          }
+ end        
+
+
+
+
+  

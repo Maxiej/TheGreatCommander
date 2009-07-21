@@ -1,0 +1,104 @@
+
+<div align = "center" style = "margin-top: 20px">
+  <% if @game.password != "" and @game.password %>
+    <b>Please input password and press enter to join game:</b><br/>  
+  <% else %>
+    <b>Join game: </b><br/>  
+  <% end %>
+
+    <i><%=h truncate(@game.name,50) %></i>
+  
+</div>
+
+<%  form_remote_tag :url => {:controller =>  'game', :action =>'join',
+                                    :id => @game.id },
+                    :html => { :method => 'post',
+                                    :onsubmit => '$("password_checking").show();
+                                    $("bad_password").hide();' } do %>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;Choose your color: 
+
+  <table id="join_game" cellspacing="0" cellpadding="0" border="0" 
+    style = "padding: 10px">  
+      <tr>      
+          <td>          
+            <%= radio_button "player","color","red",:checked =>  !color_occupeid("red", @game.players[0].color),
+              :disabled => color_occupeid("red", @game.players[0].color)%>
+          </td>
+          <td>                
+            <%= image_tag("colors/red.gif", :border => 1) %><br/>  
+            </td>
+          <td>                
+            <%= radio_button "player","color","green",:checked => true, :checked => color_occupeid("red", @game.players[0].color),
+                :disabled => color_occupeid("green", @game.players[0].color)%>
+          </td>
+          <td>                
+            <%= image_tag("colors/green.gif", :border => 1) %><br/>          
+          </td>
+          <td>                
+            <%= radio_button "player","color","black",
+                    :disabled => color_occupeid("black", @game.players[0].color)%>
+          </td>
+          <td>                
+            <%= image_tag("colors/black.gif", :border => 1) %><br/>          
+          </td>
+          <td>                
+            <%= radio_button "player","color","gray",
+                    :disabled => color_occupeid("gray", @game.players[0].color)%>
+          </td>
+          <td>                
+            <%= image_tag("colors/gray.gif", :border => 1) %><br/>          
+          </td>
+          <td>                
+            <%= radio_button "player","color","violet",
+                        :disabled => color_occupeid("violet", @game.players[0].color)%>
+          </td>
+          <td>                
+            <%= image_tag("colors/violet.gif", :border => 1) %><br/>          
+          </td>
+          <td>                
+            <%= radio_button "player","color","white" ,
+                :disabled => color_occupeid("white", @game.players[0].color)%>
+          </td>
+          <td>                
+            <%= image_tag("colors/white.gif", :border => 1) %><br/>
+          </td>
+        </tr>
+  </table>
+
+<br/>
+<br/>
+   
+    <div>  
+        <% if @game.password != "" and @game.password %>
+          <div  style = "float: left; margin-left: 100px"> 
+            Password: <%= password_field_tag "Password",nil,
+                                :style => "width: 150px" -%>
+          </div>
+          <div>
+            <div style = "float: left; margin-left: 10px">
+        <% else %>
+          <div>
+            <div style = "float: left; margin-left: 210px">
+        <% end %>               
+                <%= submit_tag 'Join'-%> 
+            </div>         
+         
+            <div id = "password_checking" 
+                 style = "width: 20px; display: none; margin-left: 380px;">
+              <%=image_tag("interactive_elements/ajax_loader.gif") %>
+            </div>     
+        </div>                 
+    </div>    
+    
+<% end %>
+
+<div>
+  <div align = "center" style = "width: 155px; margin-left: 160px; margin-top: 25px">
+          <div class = "error_message" id = "bad_password" style="display: none" ></div>
+  </div>    
+</div>
+
+<div style="position: absolute; top:180px; left:450px;" >
+    <a href="#" class="lbAction" rel="deactivate">Cancel</a>    
+</div>

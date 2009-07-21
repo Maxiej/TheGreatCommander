@@ -1,0 +1,41 @@
+
+  <%= render :partial => "console", :locals => {:game_id => @current_player.game_id}%> 
+
+  <div id="main">   
+
+    <div id="left">           
+            <div id="leftcontent">
+              <div class = "default_style" id = "left_s_panel">
+                 <%= render :partial => "player/show/",  :locals => 
+                   { :player => @current_player, :is_current => true}%>
+              </div>
+              <%= render :partial => "unit/show" %>
+              <div class = "default_style" id = "left_s_panel_details"> 
+                <%= content_tag :div," Unit's details", :id => "unit_info_left"  -%> 
+              </div>
+            </div>      
+    </div>
+    <div id = "board"  class = "board" > 
+          <div  id = "board_content">
+                   <%= render :partial => "game/board", :locals => {:offset => @offset }%>              
+          </div>
+    </div>
+  </div>
+  <div id="right">
+          <div id="rightcontent">
+           <div class = "default_style" id = "right_s_panel">
+                    <%= render :partial => "player/show/", :locals => 
+                      { :player => @opponent_player, :is_current => false}%>  
+           </div>
+           <div class = "default_style" id = "right_s_panel_details">
+             <%= content_tag :div," Unit's details", :id => "unit_info_right"  -%>
+           </div>
+           <div class = "default_style" id = "right_s_panel_statistics">
+             <%= content_tag :div,"", :id => "statistics_panel"  -%>
+                <%#= render :partial => "player/statistics/", :locals => 
+                      { :curr_player => @current_player, :opp_player => @opponent_player}%>
+          </div>
+        </div>
+          
+           
+  </div>
